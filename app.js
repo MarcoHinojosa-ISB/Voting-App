@@ -15,11 +15,10 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/src'));
+app.use('/src', express.static(__dirname + '/src'));
 
 app.use('/', function(req, res){
-  res.sendFile(__dirname + "/src/index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 module.exports = app;

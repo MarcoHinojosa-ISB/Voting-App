@@ -1,16 +1,29 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 import Polls from "./polls/index.jsx";
+import About from "./about/index.jsx";
 
 class App extends React.Component{
   render(){
     return (
-      <div>
-        <Polls />
-      </div>
-    )
+      <Router>
+        <div>
+          
+          <strong>Route Test</strong>
+          <ul>
+            <li><Link to="/" >Polls</Link></li>
+            <li><Link to="/about" >About</Link></li>
+          </ul>
+
+          <Switch>
+            <Route exact path="/" component={Polls} />
+            <Route path="/about" component={About} />
+          </Switch>
+
+        </div>
+      </Router>
+    );
   }
 }
 
 export default App;
-// ReactDom.render(<Polls />, document.getElementById("app"));
