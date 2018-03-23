@@ -1,5 +1,3 @@
-var webpack = require("webpack");
-
 module.exports = {
   module:{
     loaders: [
@@ -7,10 +5,15 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        loader: "style-loader!css-loader!sass-loader",
+        exclude: /node_modules/
       }
     ]
   },
-  entry: __dirname + "/src/entry.js",
+  entry: ["./src/entry.js", "./src/stylesheets/_main.scss"],
   output: {
     path: __dirname + '/src/build',
     publicPath: "/src/build/",
