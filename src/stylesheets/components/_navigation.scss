@@ -4,7 +4,6 @@
 #navigation{
   font-family: $monospace;
   background-color: $nav-BG;
-  color: $nav-fnt-color;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +14,7 @@
     text-decoration: none;
     color: $nav-fnt-color;
   }
-  
+
   h2{
     position: absolute;
     margin-top: 10px;

@@ -18,7 +18,11 @@ app.use(cookieParser());
 app.use('/src', express.static(__dirname + '/src'));
 
 app.use('/', function(req, res){
+  console.log("tests")
   res.sendFile(__dirname + "/index.html");
 });
-
+app.post('/test', function(req, res){
+  console.log("dsadsads");
+  res.send({test: "none"});
+});
 module.exports = app;
