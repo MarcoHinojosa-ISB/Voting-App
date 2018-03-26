@@ -23624,7 +23624,7 @@ var Signup = function (_React$Component3) {
       console.log(this.state);
       $.ajax({
         type: "post",
-        url: "/test",
+        url: "http://localhost:3000/login/test",
         data: this.state
       }).done(function (result) {
         console.log("done");
@@ -23647,10 +23647,10 @@ var Signup = function (_React$Component3) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit },
-          _react2.default.createElement('input', { type: 'text', placeholder: 'first name', onChange: this.setFname }),
-          _react2.default.createElement('input', { type: 'text', placeholder: 'last name', onChange: this.setLname }),
-          _react2.default.createElement('input', { type: 'text', placeholder: 'username', onChange: this.setUname }),
-          _react2.default.createElement('input', { type: 'text', placeholder: 'password', onChange: this.setPass }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'first name', name: 'fname', onChange: this.setFname }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'last name', name: 'lname', onChange: this.setLname }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'username', name: 'uname', onChange: this.setUname }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'password', name: 'pass', onChange: this.setPass }),
           _react2.default.createElement(
             'button',
             { type: 'submit' },

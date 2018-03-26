@@ -2,33 +2,53 @@
 @import '../helpers/typography';
 
 #login{
-  font-family: $monospace;
-  background-color: #ddd;
+  font-family: $sans-serif;
+  background-color: $log-sign-BG;
   border-radius: 10px;
   width: 32%;
   margin: 0 auto;
   padding-bottom: 5px;
 
-  h3{
-    font-size: 24px;
-    text-align: center;
+  #login-tab{
+    background-color: $log-sign-Inactive-BG;
+
+    div{
+      display: inline-block;
+      font-size: 20px;
+      text-align: center;
+      width: 50%;
+
+      &:hover{
+        cursor: pointer;
+      }
+      &.active{
+        background-color: $log-sign-BG;
+      }
+    }
   }
 
+  h3{
+    font-weight: 100;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
   input{
     display: block;
-    padding: 5px;
-    width: 80%;
+    width: 70%;
     border: none;
     border-radius: 3px;
     margin: 0 auto;
     margin-bottom: 10px;
+    padding: 5px;
   }
   button[type="submit"]{
     display: block;
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: $primary-Btn-BG;
+    color: white;
     border: none;
     border-radius: 3px;
     margin: 0 auto;
+    padding: 8px;
   }
 }
