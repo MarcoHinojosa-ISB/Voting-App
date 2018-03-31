@@ -8,7 +8,6 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {login: false};
-    this.onTabChange = this.onTabChange.bind(this);
   }
 
   onTabChange(val){
@@ -20,7 +19,7 @@ class App extends React.Component {
 
     return (
       <div id="login">
-        <Tabs login={this.state.login} onTabChange={this.onTabChange}/>
+        <Tabs login={this.state.login} onTabChange={this.onTabChange.bind(this)}/>
         {form}
       </div>
     )

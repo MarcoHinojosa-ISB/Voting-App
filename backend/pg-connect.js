@@ -9,13 +9,13 @@ module.exports = {
     pg.connect(dbString, function(err, client, done){
       if(err){
         callback(err, null);
-        console.err("Connection Error...");
+        console.log("Connection Error...");
       }
       else{
         client.query(qString, qParams ? qParams : [], function(err, result){
           if(err){
             callback(err, null);
-            console.err("Query Error...");
+            console.log("Query Error...", err);
           }
           else{
             callback(null, result);

@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+// get api routes of components
+var login = require("./backend/api/loginRoutes.js");
+
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
@@ -18,12 +21,11 @@ app.use(cookieParser());
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use('/src', express.static(__dirname + '/src'));
 
+app.use('/api/login', login.routes);
 app.use('/', function(req, res){
   console.log("tests")
   res.sendFile(__dirname + "/index.html");
 });
-app.post('/test', function(req, res){
-  console.log("dsadsads");
-  res.send({test: "none"});
-});
+
+
 module.exports = app;
