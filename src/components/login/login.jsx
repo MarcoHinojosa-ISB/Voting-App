@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from "react-router-dom";
 
 class App extends React.Component{
   constructor(props){
@@ -17,19 +18,21 @@ class App extends React.Component{
     $.ajax({
       type: "post",
       url: "/api/login/sign-in",
-      data: this.state
-    }).done(function(result){
-      console.log("done");
-    }).error(function(){
-      console.log("failure");
-    })
+      data: this.state,
+      success: function(result){
+        this.props.history.push(result);
+      }.bind(this),
+      error: function(err){
+        console.log("failure", err);
+      }
+    });
     event.preventDefault();
   }
 
   render(){
     return (
       <div>
-        <h3>Enter Credentials</h3>
+        <h3>Enter Login Info</h3>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" placeholder="username" onChange={this.setUname.bind(this)}/>
           <input type="text" placeholder="password" onChange={this.setPass.bind(this)}/>
@@ -40,4 +43,4 @@ class App extends React.Component{
   };
 }
 
-export default App;
+export default withRouter(App);

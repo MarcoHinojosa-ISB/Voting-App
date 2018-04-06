@@ -7,10 +7,13 @@
     "dev": "webpack-dev-server --port 3000 --historyApiFallback true"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",
     "dotenv": "^4.0.0",
     "express": "~4.13.1",
+    "express-session": "^1.15.6",
+    "font-awesome": "^4.7.0",
     "joi": "^13.1.2",
     "jquery": "^3.3.1",
     "node-sass": "^4.7.2",

@@ -22,9 +22,10 @@ class App extends React.Component{
           <Navigation />
 
           <Switch>
-            <Route exact path="/" component={Empty} />
-            <Route path="/polls" component={Polls} />
-            <Route path="/login" component={Login} />
+            <Route exact path="/" render={() => <Empty />} />
+            <Route path="/polls" render={() => <Polls />} />
+            <Route path="/login" render={(props) => <Login login={true} {...props} />} />
+            <Route path="/signup" render={(props) => <Login login={false} {...props} />} />
           </Switch>
         </div>
       </Router>

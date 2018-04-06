@@ -9,8 +9,8 @@ class App extends React.Component{
         <h2><Link to="/" >Voting App</Link></h2>
 
         <ul>
-          <li><Link to="/polls" >Polls</Link></li>
-          <li><Link to="/login" >Login/Signup</Link></li>
+          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/signup">Signup</Link></li>
         </ul>
 
       </div>

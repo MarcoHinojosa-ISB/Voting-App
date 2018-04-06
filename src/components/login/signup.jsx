@@ -1,24 +1,22 @@
 import React from 'react';
-
-// Error styling
-var count = 1;
+import {withRouter} from "react-router-dom";
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      fname: "", lname: "", uname: "", pass: "",
-      firstNameError: false,
-      lastNameError: false,
-      usernameExistsError: false,
-      usernameError: false,
-      passwordError: false
+      fname: "", lname: "", uname: "", pass: "", errorsFound: false
     };
+    this.fnameErrors = [];
+    this.lnameErrors = [];
+    this.unameErrors = [];
+    this.passErrors = [];
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setFname = this.setFname.bind(this);
     this.setLname = this.setLname.bind(this);
     this.setUname = this.setUname.bind(this);
     this.setPass = this.setPass.bind(this);
+    this.checkInput = this.checkInput.bind(this);
   }
 
   setFname(event){
@@ -33,70 +31,66 @@ class App extends React.Component {
   setPass(event){
     this.setState({pass: event.target.value})
   }
-  handleSubmit(event){
-    // error handlers
-    let usernameExistsError = false;
-    let firstNameError = this.state.fname.length === 0 ? true : false;
-    let lastNameError = this.state.lname.length === 0 ? true : false;
-    let usernameError = this.state.uname.length === 0 ? true : false;
-    let passwordError = this.state.pass.length < 6 ? true : false;
+  checkInput(callback){
+    this.fnameErrors = [];
+    this.lnameErrors = [];
+    this.unameErrors = [];
+    this.passErrors = [];
 
-    if(!firstNameError && !lastNameError && !usernameError && !passwordError){
-      let data = {
-        fname: this.state.fname,
-        lname: this.state.lname,
-        uname: this.state.uname,
-        pass: this.state.pass
-      }
-
+    // check first name
+    if(this.state.fname.length === 0)
+      this.fnameErrors.push("First name cannot be empty");
+    // check last name
+    if(this.state.lname.length === 0)
+      this.lnameErrors.push("Last name cannot be empty");
+    // check username
+    if(this.state.uname.length === 0)
+      this.unameErrors.push("Username cannot be empty");
+    else{
       $.ajax({
         type: "post",
         url: "/api/login/check-existing-username",
-        data: data,
+        data: this.state.uname,
         success: function(result){
-          if(result.length >= 1){
-            usernameExistsError = true;
-          }
-          else{
-            usernameExistsError = false;
-            completeSignup(data);
-          }
-        },
-        error: function(err){
-          console.log("failure", err);
-        }
-      }).done(function(){
-        this.setState({
-          firstNameError: firstNameError,
-          lastNameError: lastNameError,
-          usernameExistsError: usernameExistsError,
-          usernameError: usernameError,
-          passwordError: passwordError
-        });
-      }.bind(this));
-    } else{
-      this.setState({
-        firstNameError: firstNameError,
-        lastNameError: lastNameError,
-        usernameExistsError: usernameExistsError,
-        usernameError: usernameError,
-        passwordError: passwordError
-      });
-    }
-
-    function completeSignup(data){
-      $.ajax({
-        type: "post",
-        url: "/api/login/sign-up",
-        data: data,
-        success: function(result){
-          console.log("sign up success")
+          if(result.length >= 1)
+            this.unameErrors.push("Username already exists")
         }.bind(this),
         error: function(err){
           console.log("failure", err);
-        }.bind(this)
+        }
       });
     }
+    // check password
+    if(this.state.pass.length === 0)
+      this.passErrors.push("Password cannot be empty");
+    else if(!this.state.pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/))
+      this.passErrors.push("Password must be at least 1 number and 1 letter");
+
+    if(this.fnameErrors.length > 0 || this.lnameErrors.length > 0 || this.unameErrors.length > 0 || this.passErrors.length > 0)
+      callback(true)
+    else
+      callback(false);
+  }
+  handleSubmit(event){
+    this.checkInput((err) => {
+      if(err){
+        this.setState({errorsFound: true});
+      }
+      else{
+        $.ajax({
+          type: "post",
+          url: "/api/login/sign-up",
+          data: this.state,
+          success: function(result){
+            console.log(result);
+            this.props.history.push(result);
+          }.bind(this),
+          error: function(err){
+            console.log("failure", err);
+          }
+        });
+      }
+    })
     event.preventDefault();
   }
 
@@ -106,14 +100,25 @@ class App extends React.Component {
         <h3>Enter your credentials</h3>
         <form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="first name" maxLength="12" onChange={this.setFname}/>
-          {this.state.firstNameError ? (<p>First name cannot be empty</p>) : (<div style={{display: 'none'}}></div>)}
+          {this.fnameErrors.length > 0 ?
+            (<i className="fa fa-exclamation-circle"></i>) :
+            (<i></i>)}
+          <ErrorMessage errors={this.fnameErrors}/>
           <input type="text" placeholder="last name" maxLength="12" onChange={this.setLname}/>
-          {this.state.lastNameError ? (<p>Last name cannot be empty</p>) : (<div style={{display: 'none'}}></div>)}
+          {this.lnameErrors.length > 0 ?
+            (<i className="fa fa-exclamation-circle"></i>) :
+            (<i></i>)}
+          <ErrorMessage errors={this.lnameErrors}/>
           <input type="text" placeholder="username" maxLength="12" onChange={this.setUname}/>
-          {this.state.usernameError ? (<p>Username cannot be empty</p>) : (<div style={{display: 'none'}}></div>)}
-          {this.state.usernameExistsError ? (<p>Username already exists</p>) : (<div style={{display: 'none'}}></div>)}
+          {this.unameErrors.length > 0 ?
+            (<i className="fa fa-exclamation-circle"></i>) :
+            (<i></i>)}
+          <ErrorMessage errors={this.unameErrors}/>
           <input type="text" placeholder="password" maxLength="16" onChange={this.setPass}/>
-          {this.state.passwordError ? (<p>Password must be at least 6 letters</p>) : (<div style={{display: 'none'}}></div>)}
+          {this.passErrors.length > 0 ?
+            (<i className="fa fa-exclamation-circle"></i>) :
+            (<i></i>)}
+          <ErrorMessage errors={this.passErrors}/>
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -121,4 +126,24 @@ class App extends React.Component {
   };
 }
 
-export default App;
+class ErrorMessage extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    var messages = this.props.errors.map(function(val, i){
+      return <li key={i}>{val}</li>
+    });
+
+    return (
+      <div>
+        <ul>
+          {messages}
+        </ul>
+      </div>
+    )
+  }
+}
+
+export default withRouter(App);

@@ -1,5 +1,4 @@
 import React from 'react';
-import Tabs from './tabs.jsx';
 import Login from './login.jsx';
 import Signup from './signup.jsx';
 
@@ -7,7 +6,6 @@ import Signup from './signup.jsx';
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {login: false};
   }
 
   onTabChange(val){
@@ -15,11 +13,11 @@ class App extends React.Component {
   }
 
   render(){
-    let form = this.state.login ? (<Login />) : (<Signup />);
+    let form = this.props.login ? (<Login />) : (<Signup />);
+    console.log(this.props)
 
     return (
       <div id="login">
-        <Tabs login={this.state.login} onTabChange={this.onTabChange.bind(this)}/>
         {form}
       </div>
     )

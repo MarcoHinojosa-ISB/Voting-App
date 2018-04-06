@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
@@ -18,6 +19,7 @@ var login = require("./backend/api/loginRoutes.js");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: "secret key"}));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use('/src', express.static(__dirname + '/src'));
 

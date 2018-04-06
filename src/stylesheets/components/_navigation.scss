@@ -3,7 +3,7 @@
 
 #navigation{
   font-family: $monospace;
-  background-color: $nav-BG;
+  background-color: $nav-bg;
   position: fixed;
   top: 0;
   left: 0;
@@ -34,7 +34,7 @@
       font-size: 18px;
 
       &:hover{
-        border-bottom: 1px solid $nav-Btn-Border;
+        border-bottom: 1px solid $nav-btn-border;
         cursor: pointer;
       }
     }
