@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+import store from "../store/index.jsx";
 import Polls from "./polls/index.jsx";
-import Login from "./login/index.jsx";
+import Auth from "./auth/index.jsx";
 import Navigation from "./navigation/index.jsx";
 
 class Empty extends React.Component{
@@ -24,8 +25,8 @@ class App extends React.Component{
           <Switch>
             <Route exact path="/" render={() => <Empty />} />
             <Route path="/polls" render={() => <Polls />} />
-            <Route path="/login" render={(props) => <Login login={true} {...props} />} />
-            <Route path="/signup" render={(props) => <Login login={false} {...props} />} />
+            <Route path="/login" render={(props) => <Auth login={true} {...props} />} />
+            <Route path="/signup" render={(props) => <Auth login={false} {...props} />} />
           </Switch>
         </div>
       </Router>

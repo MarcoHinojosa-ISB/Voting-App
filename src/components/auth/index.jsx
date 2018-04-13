@@ -8,16 +8,11 @@ class App extends React.Component {
     super(props);
   }
 
-  onTabChange(val){
-    this.setState({login: val});
-  }
-
   render(){
     let form = this.props.login ? (<Login />) : (<Signup />);
-    console.log(this.props)
 
     return (
-      <div id="login">
+      <div id="auth">
         {form}
       </div>
     )
