@@ -40,7 +40,7 @@ class App extends React.Component{
 
     return (
       <div id="navigation">
-        <h2><Link to="/" >Voting App</Link></h2>
+        <h2><Link to="/" >PollBot</Link></h2>
 
         {links}
       </div>

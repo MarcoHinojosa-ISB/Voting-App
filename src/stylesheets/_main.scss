@@ -1,6 +1,9 @@
 @import 'components/navigation';
+@import 'components/home';
 @import 'components/auth';
+@import 'components/polls';
 
 body{
-  margin: 60px 0px 0px 0px;
+  background-color: $bg;
+  margin: 50px 0px 0px 0px;
 }
