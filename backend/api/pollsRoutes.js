@@ -7,6 +7,11 @@ router.get("/retrieve-polls", function(req, res){
   });
 });
 
+router.post("/create-poll", function(req, res){
+  poll.createPoll(req.body, function(err){
+    err ? res.status(500).send(err) : res.status(200).send("OK");
+  })
+})
 module.exports = {
   routes: router
 };

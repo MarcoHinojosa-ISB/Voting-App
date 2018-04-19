@@ -4,6 +4,7 @@
 #navigation{
   font-family: $monospace;
   background-color: $nav-bg;
+  color: $nav-font;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +14,7 @@
 
   a{
     text-decoration: none;
-    color: black;
+    color: $nav-font;
   }
 
   h2{
@@ -33,7 +34,8 @@
       display: inline-block;
       margin: 5px;
       font-size: 18px;
-
+      font-weight: 800;
+      
       &:hover{
         border-bottom: 1px solid $nav-btn-border;
         cursor: pointer;

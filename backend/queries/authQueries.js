@@ -43,10 +43,12 @@ function signup(data, callback){
         else if(result.length > 0){
           callback("Username already exists");
         }
-        query("INSERT INTO users (username, password, firstname, lastname) values ($1, $2, $3, $4)",
-          [data.uname, hash, data.fname, data.lname], function(err, result){
-          err ? callback("Server error") : callback(null);
-        });
+        else{
+          query("INSERT INTO users (username, password, firstname, lastname) values ($1, $2, $3, $4)",
+            [data.uname, hash, data.fname, data.lname], function(err, result){
+            err ? callback("Server error") : callback(null);
+          });
+        }
       })
     }
   });

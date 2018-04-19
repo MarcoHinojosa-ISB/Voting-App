@@ -28,11 +28,9 @@ class App extends React.Component{
 
     return (
       <div id="home">
-        <div className="description">
-          <h1>PollBot</h1>
-          <h5>Create custom polls on any topic, see live results</h5>
-          {options}
-        </div>
+        <h1>PollBot</h1>
+        <h5>Create custom polls on any topic, see live results</h5>
+        {options}
       </div>
     );
   }

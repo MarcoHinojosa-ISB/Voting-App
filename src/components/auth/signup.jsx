@@ -12,11 +12,6 @@ class App extends React.Component {
     this.lnameErrors = [];
     this.unameErrors = [];
     this.passErrors = [];
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.setFname = this.setFname.bind(this);
-    this.setLname = this.setLname.bind(this);
-    this.setUname = this.setUname.bind(this);
-    this.setPass = this.setPass.bind(this);
     this.checkInput = this.checkInput.bind(this);
   }
 
@@ -91,13 +86,13 @@ class App extends React.Component {
             if(err.responseText === "Username already exists")
               this.unameErrors.push(err.responseText);
             else
-              this.serverError = err.responseText;
+              this.serverError = true;
 
             this.setState({errorsFound: true});
           }.bind(this)
         });
       }
-    })
+    });
     event.preventDefault();
   }
 
@@ -126,17 +121,17 @@ class App extends React.Component {
       <div id="signup">
         <h3>Enter your credentials</h3>
         {serverError}
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="first name" maxLength="12" onChange={this.setFname}/>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <input type="text" placeholder="first name" maxLength="12" onChange={this.setFname.bind(this)}/>
           {fnameErrors}
           <ErrorMessage errors={this.fnameErrors}/>
-          <input type="text" placeholder="last name" maxLength="12" onChange={this.setLname}/>
+          <input type="text" placeholder="last name" maxLength="12" onChange={this.setLname.bind(this)}/>
           {lnameErrors}
           <ErrorMessage errors={this.lnameErrors}/>
-          <input type="text" placeholder="username" maxLength="12" onChange={this.setUname}/>
+          <input type="text" placeholder="username" maxLength="12" onChange={this.setUname.bind(this)}/>
           {unameErrors}
           <ErrorMessage errors={this.unameErrors}/>
-          <input type="text" placeholder="password" maxLength="16" onChange={this.setPass}/>
+          <input type="text" placeholder="password" maxLength="16" onChange={this.setPass.bind(this)}/>
           {passErrors}
           <ErrorMessage errors={this.passErrors}/>
           <button type="submit">Submit</button>

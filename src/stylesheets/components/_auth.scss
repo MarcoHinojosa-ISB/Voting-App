@@ -3,47 +3,42 @@
 
 #auth{
   font-family: $sans-serif;
-  background-color: $login-signup-bg;
-  border-radius: 10px;
+  background-color: $auth-bg;
+  color: $auth-font;
   width: 32%;
   max-width: 300px;
   min-width: 200px;
   margin: 0 auto;
   margin-top: 60px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-
+  padding: 20px;
+  text-align: center;
 
   h3{
-    font-weight: 100;
     text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px;
   }
   small{
-    display: block;
+    display: inline-block;
     text-align: center;
     color: red;
   }
   form{
-    text-align: center;
-
     input{
       border: none;
-      border-radius: 3px;
       margin: 0 auto;
       margin-top: 5px;
       margin-bottom: 5px;
       padding: 5px;
       width: 70%;
+      box-sizing: border-box;
     }
     i{
       position: relative;
       color: red;
       font-size: 15px;
-      width: 0;
       left: -20px;
       z-index: 2;
+      width: 0px;
 
       &:hover + div{
         display: block;
@@ -56,7 +51,7 @@
       margin-top: -35px;
       margin-left: 270px;
       background-color: $success-bg;
-      color: white;
+      color: $auth-error-font;
       border-radius: 3px;
 
       ul{
@@ -71,13 +66,10 @@
     background-color: $primary-bg;
     color: white;
     border: none;
-    border-radius: 3px;
     margin: 0 auto;
     margin-top: 5px;
     padding: 8px;
-
-    &:hover{
-      cursor: pointer;
-    }
+    width: 70%;
+    cursor: pointer;
   }
 }

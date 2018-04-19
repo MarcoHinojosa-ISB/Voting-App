@@ -26,7 +26,10 @@ class App extends React.Component{
         this.props.history.push(result.redirect);
       }.bind(this),
       error: function(err){
-        this.setState({error: err.responseText});
+        if(err.status === 404)
+          this.setState({error: "Something went wrong, try again later"});
+        else
+          this.setState({error: err.responseText});
       }.bind(this)
     });
     event.preventDefault();
@@ -40,16 +43,16 @@ class App extends React.Component{
       this.props.history.push("/");
   }
   render(){
-    if(this.state.error.length > 0){
+    if(this.state.error.length > 0)
       var error = (<small>{this.state.error}</small>);
-    }
+    
     return (
       <div id="login">
         <h3>Enter Login Info</h3>
+        {error}
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" placeholder="username" onChange={this.setUname.bind(this)}/>
           <input type="password" placeholder="password" onChange={this.setPass.bind(this)}/>
-          {error}
           <button type="submit">Submit</button>
         </form>
       </div>
