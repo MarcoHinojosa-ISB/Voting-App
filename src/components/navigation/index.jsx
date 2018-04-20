@@ -17,7 +17,7 @@ class App extends React.Component{
 
   // Life Cycle Methods
   render(){
-    let user = JSON.parse(localStorage.getItem('state'));
+    let user = store.getState().user;
 
     if(user && user.username){
       var links = (

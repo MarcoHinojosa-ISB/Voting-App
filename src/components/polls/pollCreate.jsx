@@ -1,9 +1,12 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
+import store from '../../store/index.jsx';
 
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {title: "", options: [], newOption: "", pollCreated: false};
+    this.removeOption = this.removeOption.bind(this);
   }
 
   // Custom Methods
@@ -21,15 +24,19 @@ class App extends React.Component{
       this.setState({options: tmp, newOption: ""});
     }
   }
+  removeOption(index){
+    this.setState({options: this.state.options.filter(function(val, i){
+        return i !== index;
+      })
+    });
+  }
   handleKeyPress(event){
     if(event.key === 'Enter')
       this.addOption();
   }
   handleSubmit(event){
-    let user = JSON.parse(localStorage.getItem('state'));
-
     let data = {
-      uname: user.username,
+      uname: store.getState().user.username,
       title: this.state.title,
       options: this.state.options
     }
@@ -49,44 +56,51 @@ class App extends React.Component{
     event.preventDefault();
   }
   newPoll(event){
-    this.setState({title: "", options: [], newOption: "", pollCreated: false})
+    this.setState({title: "", options: [], newOption: "", pollCreated: false});
   }
 
   // Life Cycle Methods
   componentWillMount(){
-    let user = JSON.parse(localStorage.getItem('state'));
-
-    if(!user || !user.username)
+    if(!store.getState().user.username)
       this.props.history.push("/");
   }
   render(){
-    var options = this.state.options.map(function(val, i){
-      return (<div className="options" key={i}>{val}</div>)
+    var options = this.state.options.map((val, i) => {
+      return (
+        <div className="options" key={i}>
+          <span>{val}</span><button type="button" onClick={() => this.removeOption(i)}>x</button>
+        </div>
+      )
     });
+    var submit = this.state.title && this.state.options.length > 1 ? (
+      <button type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
+    ) : (
+      <button type="button" className="disabled">Submit</button>
+    )
 
+    //poll created
     if(this.state.pollCreated){
       var content = (
-        <div>
+        <div className="done">
           <h2>Poll has been successfully created</h2>
-          <div>
-            <button type="button" onClick={this.newPoll.bind(this)}>New Poll +</button>
-          </div>
+          <button type="button" onClick={this.newPoll.bind(this)}>New Poll +</button>
         </div>
       )
     }
+    //form content
     else{
       var content = (
-        <div>
+        <div className="form">
           <input type="text" placeholder="Title" onChange={this.setTitle.bind(this)}/>
           {options}
           <div className="option-input">
-            <input type="text" placeholder="New option" maxLength="60"
+            <input type="text" placeholder="Add an option" maxLength="60"
               value={this.state.newOption}
               onChange={this.setNewOption.bind(this)}
               onKeyPress={this.handleKeyPress.bind(this)}/>
             <button type="button" onClick={this.addOption.bind(this)}>+</button>
           </div>
-          <button type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
+          {submit}
         </div>
       )
     }
@@ -94,12 +108,10 @@ class App extends React.Component{
     return (
       <div id="poll-create">
         <h1>Create a new poll below</h1>
-        <form>
-          {content}
-        </form>
+        {content}
       </div>
     )
   }
 }
 
-export default App;
+export default withRouter(App);

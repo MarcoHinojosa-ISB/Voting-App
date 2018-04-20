@@ -28,7 +28,7 @@ class App extends React.Component{
             <Route path="/polls" render={(props) => <Polls type={"list"}{...props} />} />
             <Route path="/polls-own" render={(props) => <Polls type={"list-own"}{...props} />} />
             <Route path="/poll-create" render={(props) => <Polls type={"create"}{...props} />} />
-            <Route path="/poll/:title" render={(props) => <Polls type={"single"}{...props} />} />
+            <Route path="/poll/:title" render={(props) => <Polls type={"view"}{...props} />} />
             <Route path="/login" render={(props) => <Auth login={true} {...props} />} />
             <Route path="/signup" render={(props) => <Auth login={false} {...props} />} />
           </Switch>

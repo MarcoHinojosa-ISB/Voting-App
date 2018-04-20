@@ -1,7 +1,7 @@
 import React from 'react';
 import PollList from './pollList.jsx';
 import PollCreate from './pollCreate.jsx';
-import Poll from './poll.jsx';
+import PollView from './pollView.jsx';
 
 class App extends React.Component{
   constructor(props){
@@ -15,7 +15,7 @@ class App extends React.Component{
       var content = <PollList owner={true} />
     else if(this.props.type === "create")
       var content = <PollCreate />
-    else if(this.props.type === "single")
+    else if(this.props.type === "view")
       var content = <div></div>
 
     return (

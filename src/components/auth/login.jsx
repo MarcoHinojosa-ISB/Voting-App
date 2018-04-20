@@ -37,15 +37,13 @@ class App extends React.Component{
 
   // Life Cycle Methods
   componentWillMount(){
-    let user = JSON.parse(localStorage.getItem('state'));
-
-    if(user && user.username)
+    if(store.getState().user.username)
       this.props.history.push("/");
   }
   render(){
     if(this.state.error.length > 0)
       var error = (<small>{this.state.error}</small>);
-    
+
     return (
       <div id="login">
         <h3>Enter Login Info</h3>

@@ -4,9 +4,9 @@ export function loggedIn(username, firstname, lastname){
     username,
     firstname,
     lastname
-  }
+  };
 };
 
 export function loggedOut(){
-  return {type: "LOGGED_OUT"}
+  return {type: "LOGGED_OUT"};
 };

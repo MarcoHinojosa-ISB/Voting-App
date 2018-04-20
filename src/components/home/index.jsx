@@ -1,5 +1,6 @@
 import React from "react";
 import {Route, Link} from 'react-router-dom';
+import store from '../../store/index.jsx'
 
 class App extends React.Component{
   constructor(props){
@@ -8,9 +9,7 @@ class App extends React.Component{
   }
 
   render(){
-    let user = JSON.parse(localStorage.getItem('state'));
-
-    if(user && user.username){
+    if(store.getState().user.username){
       var options = (
         <div>
           <Link to="/poll-create">Create poll</Link>

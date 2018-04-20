@@ -1,5 +1,6 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
+import store from "../../store/index.jsx";
 
 class App extends React.Component {
   constructor(props){
@@ -56,7 +57,7 @@ class App extends React.Component {
         if(this.state.pass.length === 0)
           this.passErrors.push("Password cannot be empty");
         else if(!this.state.pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/))
-          this.passErrors.push("Password must be at least 1 number and 1 letter");
+          this.passErrors.push("Password must be at least 8 characters, 1 number, & 1 letter");
 
         if(this.fnameErrors.length > 0 || this.lnameErrors.length > 0 || this.unameErrors.length > 0 || this.passErrors.length > 0)
           callback(true);
@@ -80,6 +81,7 @@ class App extends React.Component {
           url: "/api/auth/sign-up",
           data: this.state,
           success: function(result){
+            store.dispatch(loggedIn(this.state.uname, this.state.fname, this.state.lname));
             this.props.history.push(result);
           }.bind(this),
           error: function(err){
@@ -87,7 +89,6 @@ class App extends React.Component {
               this.unameErrors.push(err.responseText);
             else
               this.serverError = true;
-
             this.setState({errorsFound: true});
           }.bind(this)
         });
@@ -98,9 +99,7 @@ class App extends React.Component {
 
   // Life Cycle Methods
   componentWillMount(){
-    let user = JSON.parse(localStorage.getItem('state'));
-
-    if(user && user.username)
+    if(store.getState().user.username)
       this.props.history.push("/");
   }
   render(){
