@@ -10,13 +10,14 @@
   left: 0;
   width: 100%;
   min-width: 700px;
-  height: 50px;
+  height: 40px;
 
   a{
     text-decoration: none;
     color: $nav-font;
   }
 
+  // title
   h2{
     position: absolute;
     margin-top: 10px;
@@ -24,25 +25,53 @@
     left: 30px;
   }
 
-  ul{
+  // menu
+  >ul{
     position: absolute;
-    margin-top: 8px;
+    margin-top: 10px;
     margin-bottom: 0px;
-    right: 40px;
+    padding: 0px;
+    right: 50px;
 
-    > li{
+    >li{
+      position: relative;
       display: inline-block;
-      margin: 5px;
-      font-size: 18px;
+      margin: 3px;
+      font-size: 20px;
       font-weight: 800;
-      
+      text-align: center;
+
+      // dropdown
+      .dropdown{
+        position: absolute;
+        background-color: $nav-bg;
+        color: $nav-font;
+        width: 125px;
+        right: 0px;
+        padding-left: 0px;
+        font-size: 14px;
+        list-style-type: none;
+        display: none;
+
+        // dropdown buttons
+        li{
+          padding: 10px;
+
+          &:hover{
+            background-color: $nav-hover-bg;
+            color: $nav-hover-font;
+          }
+        }
+      }
+
       &:hover{
         border-bottom: 1px solid $nav-btn-border;
         cursor: pointer;
       }
-      &.username:hover{
-        border-bottom: none;
-        cursor: default;
+
+      // show dropdown on hover
+      &.username:hover .dropdown{
+        display: block;
       }
     }
   }

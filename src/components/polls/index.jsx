@@ -10,9 +10,9 @@ class App extends React.Component{
 
   render(){
     if(this.props.type === "list")
-      var content = <PollList owner={false} />
-    else if(this.props.type === "list-owner")
-      var content = <PollList owner={true} />
+      var content = <PollList type="list"/>
+    else if(this.props.type === "list-own")
+      var content = <PollList type="list-own"/>
     else if(this.props.type === "create")
       var content = <PollCreate />
     else if(this.props.type === "view")

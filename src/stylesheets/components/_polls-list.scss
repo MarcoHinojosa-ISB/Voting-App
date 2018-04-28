@@ -1,0 +1,92 @@
+@import '../helpers/colors';
+@import '../helpers/typography';
+
+$table-total-width: 750px;
+$table-title-width: 600px;
+$table-date-width: 120px;
+$table-delete-width: 30px;
+
+#poll-list{
+  font-family: $sans-serif;
+  padding-top: 20px;
+
+  >h1{
+    color: $polls-font;
+    width: $table-total-width;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  // table
+  .list{
+    border: 1px solid white;
+    width: $table-total-width;
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 0 auto;
+
+    table{
+      display: inline-block;
+      color: $polls-font;
+      width: 100%;
+      border-collapse: collapse;
+      box-sizing: border-box;
+
+      tr.poll-row{
+        +tr.poll-row{
+          border-top: 1px solid white;
+        }
+      }
+      th{
+        width: 100%;
+        height: 20px;
+
+        &.title{
+          padding-left: 10px;
+          text-align: left;
+        }
+        &.date-created{
+          text-align: right;
+        }
+      }
+      td{
+        &.title{
+          width: $table-title-width;
+          text-align: left;
+          padding: 5px;
+          padding-left: 10px;
+
+          a{
+            color: $polls-font;
+            text-decoration: none;
+
+            &:hover{
+              color: $polls-hover-font;
+              text-decoration: none;
+              cursor: pointer;
+            }
+          }
+          small{
+            font-size: 8px;
+          }
+        }
+        &.date-created{
+          width: $table-date-width;
+          text-align: right;
+        }
+        &.delete{
+          width: $table-delete-width;
+          text-align: center;
+
+          i{
+            color: $warning-bg;
+          }
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

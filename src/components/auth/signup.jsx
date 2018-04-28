@@ -1,6 +1,8 @@
 import React from 'react';
+import Axios from 'axios';
 import {withRouter} from "react-router-dom";
 import store from "../../store/index.jsx";
+import {loggedIn} from '../../store/actions/userActions.jsx';
 
 class App extends React.Component {
   constructor(props){
@@ -30,45 +32,41 @@ class App extends React.Component {
     this.setState({pass: event.target.value})
   }
   checkInput(callback){
-    $.ajax({
-      type: "post",
-      url: "/api/auth/check-existing-username",
-      data: this.state,
-      success: function(result){
-        this.serverError = "";
-        this.fnameErrors = [];
-        this.lnameErrors = [];
-        this.unameErrors = [];
-        this.passErrors = [];
+    Axios.post("/api/auth/check-existing-username", this.state)
+    .then(result => {
+      this.serverError = "";
+      this.fnameErrors = [];
+      this.lnameErrors = [];
+      this.unameErrors = [];
+      this.passErrors = [];
 
-        // check first name
-        if(this.state.fname.length === 0)
-          this.fnameErrors.push("First name cannot be empty");
-        // check last name
-        if(this.state.lname.length === 0)
-          this.lnameErrors.push("Last name cannot be empty");
-        // check username
-        if(this.state.uname.length === 0)
-          this.unameErrors.push("Username cannot be empty");
-        if(result.length >= 1){
-          this.unameErrors.push("Username already exists");
-        }
-        // check password
-        if(this.state.pass.length === 0)
-          this.passErrors.push("Password cannot be empty");
-        else if(!this.state.pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/))
-          this.passErrors.push("Password must be at least 8 characters, 1 number, & 1 letter");
+      // check first name
+      if(this.state.fname.length === 0)
+        this.fnameErrors.push("First name cannot be empty");
+      // check last name
+      if(this.state.lname.length === 0)
+        this.lnameErrors.push("Last name cannot be empty");
+      // check username
+      if(this.state.uname.length === 0)
+        this.unameErrors.push("Username cannot be empty");
+      if(result.data.length >= 1){
+        this.unameErrors.push("Username already exists");
+      }
+      // check password
+      if(this.state.pass.length === 0)
+        this.passErrors.push("Password cannot be empty");
+      else if(!this.state.pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/))
+        this.passErrors.push("Password must be at least 8 characters, 1 number, & 1 letter");
 
-        if(this.fnameErrors.length > 0 || this.lnameErrors.length > 0 || this.unameErrors.length > 0 || this.passErrors.length > 0)
-          callback(true);
-        else
-          callback(false);
-      }.bind(this),
-      error: function(err){
-        this.serverError = err.responseText;
+      if(this.fnameErrors.length > 0 || this.lnameErrors.length > 0 || this.unameErrors.length > 0 || this.passErrors.length > 0)
         callback(true);
-      }.bind(this)
-    });
+      else
+        callback(false);
+    })
+    .catch(err => {
+      this.serverError = err.responseText;
+      callback(true);
+    })
   }
   handleSubmit(event){
     this.checkInput((err) => {
@@ -76,22 +74,18 @@ class App extends React.Component {
         this.setState({errorsFound: true});
       }
       else{
-        $.ajax({
-          type: "post",
-          url: "/api/auth/sign-up",
-          data: this.state,
-          success: function(result){
-            store.dispatch(loggedIn(this.state.uname, this.state.fname, this.state.lname));
-            this.props.history.push(result);
-          }.bind(this),
-          error: function(err){
-            if(err.responseText === "Username already exists")
-              this.unameErrors.push(err.responseText);
-            else
-              this.serverError = true;
-            this.setState({errorsFound: true});
-          }.bind(this)
-        });
+        Axios.post("/api/auth/sign-up", this.state)
+        .then(result => {
+          store.dispatch(loggedIn(this.state.uname, this.state.fname, this.state.lname));
+          this.props.history.push(result.data.redirect);
+        })
+        .catch(err => {
+          if(err.data.responseText === "Username already exists")
+            this.unameErrors.push(err.data.responseText);
+          else
+            this.serverError = true;
+          this.setState({errorsFound: true});
+        })
       }
     });
     event.preventDefault();

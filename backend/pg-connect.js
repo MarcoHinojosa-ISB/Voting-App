@@ -13,6 +13,7 @@ module.exports = {
       }
       else{
         client.query(qString, qParams ? qParams : [], function(err, result){
+          done();
           if(err){
             callback(err, null);
             console.log("Query Error...", err);

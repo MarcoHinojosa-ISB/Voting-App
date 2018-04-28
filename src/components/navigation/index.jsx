@@ -1,18 +1,20 @@
 import React from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, withRouter} from 'react-router-dom';
 import store from '../../store/index.jsx';
 import {loggedOut} from '../../store/actions/userActions.jsx';
 
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.signOut = this.signOut.bind(this);
   }
 
   // Custom Methods
-  signOut(history){
+  myPolls(){
+    this.props.history.push("/polls-own");
+  }
+  logOut(){
     store.dispatch(loggedOut());
-    history.push("/");
+    this.props.history.push("/");
   }
 
   // Life Cycle Methods
@@ -22,9 +24,12 @@ class App extends React.Component{
     if(user && user.username){
       var links = (
         <ul>
-          <li className="username">{user.username}</li>
-          <li>
-            <Route render={({history}) => (<div onClick={() => this.signOut(history)}>Logout</div>)}></Route>
+          <li className="username">
+            {user.username} <i className="fa fa-angle-down"></i>
+            <ul className="dropdown">
+              <li onClick={this.myPolls.bind(this)}>My polls</li>
+              <li onClick={this.logOut.bind(this)}>Logout</li>
+            </ul>
           </li>
         </ul>
       )
@@ -48,4 +53,4 @@ class App extends React.Component{
   }
 }
 
-export default App;
+export default withRouter(App);

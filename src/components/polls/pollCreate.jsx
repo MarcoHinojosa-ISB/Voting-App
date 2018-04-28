@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import store from '../../store/index.jsx';
 
@@ -35,25 +36,21 @@ class App extends React.Component{
       this.addOption();
   }
   handleSubmit(event){
+    event.preventDefault();
     let data = {
       uname: store.getState().user.username,
       title: this.state.title,
       options: this.state.options
     }
 
-    $.ajax({
-      type: "post",
-      data: data,
-      url: "/api/polls/create-poll",
-      success: function(result){
-        console.log("success");
-        this.setState({pollCreated: true});
-      }.bind(this),
-      error: function(err){
-        console.log(err);
-      }
+    Axios.post('/api/polls/create-poll', data)
+    .then(result => {
+      console.log(result);
+      this.setState({pollCreated: true});
     })
-    event.preventDefault();
+    .catch(err => {
+      console.log(err);
+    });
   }
   newPoll(event){
     this.setState({title: "", options: [], newOption: "", pollCreated: false});
