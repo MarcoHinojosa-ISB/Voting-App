@@ -5,6 +5,8 @@ $table-total-width: 750px;
 $table-title-width: 600px;
 $table-date-width: 120px;
 $table-delete-width: 30px;
+$prompt-width: 500px;
+$prompt-height: 150px;
 
 #poll-list{
   font-family: $sans-serif;
@@ -33,11 +35,13 @@ $table-delete-width: 30px;
       border-collapse: collapse;
       box-sizing: border-box;
 
+      // borders to separate polls
       tr.poll-row{
         +tr.poll-row{
           border-top: 1px solid white;
         }
       }
+
       th{
         width: 100%;
         height: 20px;
@@ -81,6 +85,59 @@ $table-delete-width: 30px;
 
           i{
             color: $warning-bg;
+
+            &:hover{
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .delete-prompt{
+    display: none;
+
+    .overlay{
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #ffffff;
+      opacity: 0.12;
+      z-index: 1;
+    }
+    .content{
+      position: fixed;
+      background-color: $modal-bg;
+      left: 50%;
+      top: 50%;
+      width: $prompt-width;
+      height: $prompt-height;
+      margin-left: -($prompt-width/2);
+      margin-top: -($prompt-height/2);
+      text-align: center;
+      border-radius: 5px;
+      z-index: 2;
+
+      div{
+        width: 80%;
+        margin: 0 auto;
+
+        button{
+          color: #ffffff;
+          width: 100px;
+          height: 30px;
+          margin: 5px;
+          border: none;
+          outline: none;
+
+          &.confirm{
+            background-color: $warning-bg;
+          }
+          &.cancel{
+            background-color: #aaaaaa;
           }
           &:hover{
             cursor: pointer;

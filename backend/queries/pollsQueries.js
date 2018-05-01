@@ -33,12 +33,10 @@ function retrieveOwnPolls(data, callback){
 
 function createPoll(data, callback){
   query("SELECT id FROM users WHERE username=$1;", [data.uname], function(err, result){
-    console.log(err)
     if(err)
       callback("User currently not logged in");
     else{
       query("INSERT INTO polls (user_id, title) values ($1, $2) RETURNING id;", [result.rows[0].id, data.title], function(err, result){
-        console.log(data)
         if(err)
           callback("Unable to create poll");
         else

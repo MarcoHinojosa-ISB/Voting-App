@@ -7,7 +7,7 @@ import store from '../../store/index.jsx';
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {polls: [], listType: ""};
+    this.state = {polls: [], listType: "", pollToBeDeleted: {id: null, title: null, date_created: null}};
   }
   // Custom methods
 
@@ -15,11 +15,12 @@ class App extends React.Component{
     return this.state.polls.map( (val, i) => {
       let tmpDate = Moment(new Date(val.date_created), 'MM-DD-YYYY').format('MM/DD/YYYY');
 
+      // <td className="delete"><i className="fa fa-window-close" onClick={this.deletePoll.bind(this, val)}></i></td>
       return this.props.type === "list-own" ? (
         <tr className="poll-row" key={i}>
           <td className="title"><Link to={"/polls/"+val.id}>{val.title}</Link> <small>[{val.sum} votes]</small></td>
           <td className="date-created"><small>{tmpDate}</small></td>
-          <td className="delete"><i className="fa fa-window-close" onClick={this.deletePoll.bind(this, val)}></i></td>
+          <td className="delete"><i className="fa fa-window-close" onClick={this.showPrompt.bind(this, val)}></i></td>
         </tr>
       ) : (
         <tr className="poll-row" key={i}>
@@ -31,18 +32,29 @@ class App extends React.Component{
     })
   }
 
-  deletePoll(val){
-    Axios.delete("/api/polls/delete-poll", {data: {id: val.id}})
+  showPrompt(val){
+    document.getElementsByClassName("delete-prompt")[0].style.display = "block";
+    this.setState({pollToBeDeleted: val});
+  }
+  hidePrompt(){
+    console.log("hide")
+    document.getElementsByClassName("delete-prompt")[0].style.display = "none";
+    this.setState({pollToBeDeleted: {id: null, title: null, date_created: null}});
+  }
+
+  deletePoll(poll){
+    Axios.delete("/api/polls/delete-poll", {data: {id: poll.id}})
     .then( result => {
-      let tmp = this.state.polls.filter(function(val2, i){
-        return val2.id !== val.id;
+      this.hidePrompt();
+
+      let tmp = this.state.polls.filter(val2 => {
+        return val2.id !== poll.id
       });
       this.setState({polls: tmp});
     })
     .catch( err => {
       console.log(err);
     })
-    console.log(val);
   }
 
   // Life cycle methods
@@ -50,8 +62,13 @@ class App extends React.Component{
     if(!store.getState().user.username)
       this.props.history.push("/");
   }
+  componentWillReceiveProps(nextProps){
+    //in case the user activates "delete prompt", does nothing, then goes to list of ALL polls
+    if(nextProps.type === "list")
+      this.hidePrompt();
+  }
   render(){
-    console.log(this.props.type)
+    //get poll data, either all or self-made
     if(this.state.listType !== this.props.type){
       if(this.props.type === "list-own"){
         let data = {uname: store.getState().user.username};
@@ -75,12 +92,15 @@ class App extends React.Component{
       }
     }
 
+    //get poll list rendered
     var tmp = this.displayPolls();
+
+
     return (
       <div id="poll-list">
         <h1>{this.props.type === "list-own" ? ("My Polls") : ("Polls")}</h1>
-        <div className="list">
 
+        <div className="list">
           <table>
             <tbody>
               {this.props.type === "list-own" ? (
@@ -98,7 +118,18 @@ class App extends React.Component{
               {tmp}
             </tbody>
           </table>
+        </div>
 
+        <div className="delete-prompt">
+          <div className="overlay"></div>
+          <div className="content">
+            <h4>Are you sure you want to delete this poll?</h4>
+            <h6>[{this.state.pollToBeDeleted.title}]</h6>
+            <div>
+              <button className="confirm" onClick={this.deletePoll.bind(this, this.state.pollToBeDeleted)}>Yes</button>
+              <button className="cancel" onClick={this.hidePrompt.bind(this)}>No</button>
+            </div>
+          </div>
         </div>
       </div>
     )

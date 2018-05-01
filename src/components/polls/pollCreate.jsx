@@ -62,6 +62,7 @@ class App extends React.Component{
       this.props.history.push("/");
   }
   render(){
+    //render currently added options
     var options = this.state.options.map((val, i) => {
       return (
         <div className="options" key={i}>
@@ -84,14 +85,15 @@ class App extends React.Component{
         </div>
       )
     }
-    //form content
+
+    //input form
     else{
       var content = (
         <div className="form">
-          <input type="text" placeholder="Title" onChange={this.setTitle.bind(this)}/>
+          <input type="text" placeholder="Title" maxLength="50" onChange={this.setTitle.bind(this)}/>
           {options}
           <div className="option-input">
-            <input type="text" placeholder="Add an option" maxLength="60"
+            <input type="text" placeholder="Add an option" maxLength="50"
               value={this.state.newOption}
               onChange={this.setNewOption.bind(this)}
               onKeyPress={this.handleKeyPress.bind(this)}/>

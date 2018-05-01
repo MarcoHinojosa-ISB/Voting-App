@@ -43299,7 +43299,7 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = { polls: [], listType: "" };
+    _this.state = { polls: [], listType: "", pollToBeDeleted: { id: null, title: null, date_created: null } };
     return _this;
   }
   // Custom methods
@@ -43312,6 +43312,7 @@ var App = function (_React$Component) {
       return this.state.polls.map(function (val, i) {
         var tmpDate = (0, _moment2.default)(new Date(val.date_created), 'MM-DD-YYYY').format('MM/DD/YYYY');
 
+        // <td className="delete"><i className="fa fa-window-close" onClick={this.deletePoll.bind(this, val)}></i></td>
         return _this2.props.type === "list-own" ? _react2.default.createElement(
           "tr",
           { className: "poll-row", key: i },
@@ -43344,7 +43345,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             "td",
             { className: "delete" },
-            _react2.default.createElement("i", { className: "fa fa-window-close", onClick: _this2.deletePoll.bind(_this2, val) })
+            _react2.default.createElement("i", { className: "fa fa-window-close", onClick: _this2.showPrompt.bind(_this2, val) })
           )
         ) : _react2.default.createElement(
           "tr",
@@ -43380,19 +43381,33 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: "showPrompt",
+    value: function showPrompt(val) {
+      document.getElementsByClassName("delete-prompt")[0].style.display = "block";
+      this.setState({ pollToBeDeleted: val });
+    }
+  }, {
+    key: "hidePrompt",
+    value: function hidePrompt() {
+      console.log("hide");
+      document.getElementsByClassName("delete-prompt")[0].style.display = "none";
+      this.setState({ pollToBeDeleted: { id: null, title: null, date_created: null } });
+    }
+  }, {
     key: "deletePoll",
-    value: function deletePoll(val) {
+    value: function deletePoll(poll) {
       var _this3 = this;
 
-      _axios2.default.delete("/api/polls/delete-poll", { data: { id: val.id } }).then(function (result) {
-        var tmp = _this3.state.polls.filter(function (val2, i) {
-          return val2.id !== val.id;
+      _axios2.default.delete("/api/polls/delete-poll", { data: { id: poll.id } }).then(function (result) {
+        _this3.hidePrompt();
+
+        var tmp = _this3.state.polls.filter(function (val2) {
+          return val2.id !== poll.id;
         });
         _this3.setState({ polls: tmp });
       }).catch(function (err) {
         console.log(err);
       });
-      console.log(val);
     }
 
     // Life cycle methods
@@ -43403,11 +43418,17 @@ var App = function (_React$Component) {
       if (!_index2.default.getState().user.username) this.props.history.push("/");
     }
   }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      //in case the user activates "delete prompt", does nothing, then goes to list of ALL polls
+      if (nextProps.type === "list") this.hidePrompt();
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this4 = this;
 
-      console.log(this.props.type);
+      //get poll data, either all or self-made
       if (this.state.listType !== this.props.type) {
         if (this.props.type === "list-own") {
           var data = { uname: _index2.default.getState().user.username };
@@ -43426,7 +43447,9 @@ var App = function (_React$Component) {
         }
       }
 
+      //get poll list rendered
       var tmp = this.displayPolls();
+
       return _react2.default.createElement(
         "div",
         { id: "poll-list" },
@@ -43477,6 +43500,41 @@ var App = function (_React$Component) {
                 )
               ),
               tmp
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "delete-prompt" },
+          _react2.default.createElement("div", { className: "overlay" }),
+          _react2.default.createElement(
+            "div",
+            { className: "content" },
+            _react2.default.createElement(
+              "h4",
+              null,
+              "Are you sure you want to delete this poll?"
+            ),
+            _react2.default.createElement(
+              "h6",
+              null,
+              "[",
+              this.state.pollToBeDeleted.title,
+              "]"
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "button",
+                { className: "confirm", onClick: this.deletePoll.bind(this, this.state.pollToBeDeleted) },
+                "Yes"
+              ),
+              _react2.default.createElement(
+                "button",
+                { className: "cancel", onClick: this.hidePrompt.bind(this) },
+                "No"
+              )
             )
           )
         )
@@ -43872,6 +43930,8 @@ var App = function (_React$Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
+      var _this2 = this;
+
       event.preventDefault();
       var data = {
         uname: _index2.default.getState().user.username,
@@ -43879,10 +43939,9 @@ var App = function (_React$Component) {
         options: this.state.options
       };
 
-      var self = this;
       _axios2.default.post('/api/polls/create-poll', data).then(function (result) {
         console.log(result);
-        self.setState({ pollCreated: true });
+        _this2.setState({ pollCreated: true });
       }).catch(function (err) {
         console.log(err);
       });
@@ -43903,8 +43962,9 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
+      //render currently added options
       var options = this.state.options.map(function (val, i) {
         return _react2.default.createElement(
           'div',
@@ -43917,7 +43977,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             'button',
             { type: 'button', onClick: function onClick() {
-                return _this2.removeOption(i);
+                return _this3.removeOption(i);
               } },
             'x'
           )
@@ -43950,17 +44010,18 @@ var App = function (_React$Component) {
           )
         );
       }
-      //form content
+
+      //input form
       else {
           var content = _react2.default.createElement(
             'div',
             { className: 'form' },
-            _react2.default.createElement('input', { type: 'text', placeholder: 'Title', onChange: this.setTitle.bind(this) }),
+            _react2.default.createElement('input', { type: 'text', placeholder: 'Title', maxLength: '50', onChange: this.setTitle.bind(this) }),
             options,
             _react2.default.createElement(
               'div',
               { className: 'option-input' },
-              _react2.default.createElement('input', { type: 'text', placeholder: 'Add an option', maxLength: '60',
+              _react2.default.createElement('input', { type: 'text', placeholder: 'Add an option', maxLength: '50',
                 value: this.state.newOption,
                 onChange: this.setNewOption.bind(this),
                 onKeyPress: this.handleKeyPress.bind(this) }),
@@ -44058,7 +44119,7 @@ exports = module.exports = __webpack_require__(265)(false);
 
 
 // module
-exports.push([module.i, "/* font families */\n#navigation {\n  font-family: \"Courier New\", Courier, monospace;\n  background-color: #333333;\n  color: #aaaaaa;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  min-width: 700px;\n  height: 40px; }\n  #navigation a {\n    text-decoration: none;\n    color: #aaaaaa; }\n  #navigation h2 {\n    position: absolute;\n    margin-top: 10px;\n    margin-bottom: 0px;\n    left: 30px; }\n  #navigation > ul {\n    position: absolute;\n    margin-top: 10px;\n    margin-bottom: 0px;\n    padding: 0px;\n    right: 50px; }\n    #navigation > ul > li {\n      position: relative;\n      display: inline-block;\n      margin: 3px;\n      font-size: 20px;\n      font-weight: 800;\n      text-align: center; }\n      #navigation > ul > li .dropdown {\n        position: absolute;\n        background-color: #333333;\n        color: #aaaaaa;\n        width: 125px;\n        right: 0px;\n        padding-left: 0px;\n        font-size: 14px;\n        list-style-type: none;\n        display: none; }\n        #navigation > ul > li .dropdown li {\n          padding: 10px; }\n          #navigation > ul > li .dropdown li:hover {\n            background-color: #262626;\n            color: #999999; }\n      #navigation > ul > li:hover {\n        border-bottom: 1px solid #cacaca;\n        cursor: pointer; }\n      #navigation > ul > li.username:hover .dropdown {\n        display: block; }\n\n/* font families */\n#home {\n  font-family: Verdana, Geneva, sans-serif;\n  color: #bbbbff;\n  padding-top: 20px;\n  text-align: center; }\n  #home h1 {\n    font-size: 45px;\n    margin-bottom: 2px; }\n  #home h5 {\n    width: 250px;\n    margin: 0 auto;\n    margin-bottom: 20px; }\n  #home a {\n    display: inline-block;\n    color: #bbbbff;\n    border: 1px solid #bbbbff;\n    text-decoration: none;\n    margin: 5px;\n    padding: 7px; }\n\n/* font families */\n#auth {\n  font-family: Verdana, Geneva, sans-serif;\n  background-color: #494949;\n  color: #dddddd;\n  width: 32%;\n  max-width: 300px;\n  min-width: 200px;\n  margin: 0 auto;\n  margin-top: 60px;\n  padding: 20px;\n  text-align: center; }\n  #auth h3 {\n    text-align: center;\n    margin: 10px; }\n  #auth small {\n    display: inline-block;\n    text-align: center;\n    color: red; }\n  #auth form input {\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    margin-bottom: 5px;\n    padding: 5px;\n    width: 70%;\n    box-sizing: border-box; }\n  #auth form i {\n    position: relative;\n    color: red;\n    font-size: 15px;\n    left: -20px;\n    z-index: 2;\n    width: 0px; }\n    #auth form i:hover + div {\n      display: block; }\n  #auth form div {\n    position: absolute;\n    display: none;\n    font-size: 10px;\n    margin-top: -35px;\n    margin-left: 270px;\n    background-color: #28a745;\n    color: #ffffff;\n    border-radius: 3px; }\n    #auth form div ul {\n      list-style-type: none;\n      padding-left: 5px;\n      padding-right: 5px; }\n  #auth button[type=\"submit\"] {\n    display: block;\n    background-color: #00afff;\n    color: white;\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    padding: 8px;\n    width: 70%;\n    cursor: pointer; }\n\n/* font families */\n#poll-create {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #poll-create h1 {\n    color: #bbbbff;\n    text-align: center; }\n  #poll-create .done, #poll-create .form {\n    padding: 10px;\n    width: 600px;\n    min-width: 450px;\n    margin: 0 auto;\n    border: 1px solid #bbbbff; }\n  #poll-create .done {\n    text-align: center; }\n    #poll-create .done h2 {\n      color: #bbbbff;\n      text-align: center; }\n    #poll-create .done button {\n      background-color: #00afff;\n      color: #ffffff;\n      border: 1px solid #00afff;\n      margin: 0 auto;\n      padding: 5px;\n      cursor: pointer; }\n  #poll-create .form input[placeholder=\"Title\"] {\n    width: 100%;\n    height: 35px;\n    background-color: #161620;\n    color: #bbbbff;\n    font-size: 20px;\n    margin-bottom: 20px;\n    padding: 5px;\n    border: none;\n    border-bottom: 3px solid #bbbbff;\n    box-sizing: border-box;\n    outline: none; }\n  #poll-create .form .options {\n    width: 100%;\n    color: #bbbbff;\n    font-size: 15px;\n    padding-top: 5px;\n    padding-bottom: 5px; }\n    #poll-create .form .options + .options {\n      border-top: 1px solid #bbbbff; }\n    #poll-create .form .options span {\n      display: inline-block;\n      width: 95%;\n      padding-left: 6px;\n      box-sizing: border-box; }\n    #poll-create .form .options button {\n      width: 5%;\n      background-color: #dc3545;\n      color: #ffffff;\n      border: 1px solid #dc3545;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n  #poll-create .form .option-input {\n    width: 100%;\n    margin-top: 7px; }\n    #poll-create .form .option-input > input {\n      width: 95%;\n      background-color: #363640;\n      color: #bbbbff;\n      font-size: 15px;\n      border: 1px solid #363640;\n      padding-left: 5px;\n      box-sizing: border-box;\n      outline: none; }\n    #poll-create .form .option-input > button {\n      width: 5%;\n      background-color: #00afff;\n      color: #ffffff;\n      font-size: 15px;\n      border: 1px solid #00afff;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n    #poll-create .form .option-input + button {\n      width: 600px;\n      background-color: #28a745;\n      color: #ffffff;\n      border: 1px solid #28a745;\n      margin-top: 10px;\n      padding: 5px;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n      #poll-create .form .option-input + button.disabled {\n        background-color: #335533;\n        color: #999999;\n        border-color: #335533;\n        cursor: default; }\n\n/* font families */\n#poll-list {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #poll-list > h1 {\n    color: #bbbbff;\n    width: 750px;\n    margin: 0 auto;\n    margin-bottom: 30px;\n    text-align: center; }\n  #poll-list .list {\n    border: 1px solid white;\n    width: 750px;\n    max-height: 400px;\n    overflow-y: auto;\n    margin: 0 auto; }\n    #poll-list .list table {\n      display: inline-block;\n      color: #bbbbff;\n      width: 100%;\n      border-collapse: collapse;\n      box-sizing: border-box; }\n      #poll-list .list table tr.poll-row + tr.poll-row {\n        border-top: 1px solid white; }\n      #poll-list .list table th {\n        width: 100%;\n        height: 20px; }\n        #poll-list .list table th.title {\n          padding-left: 5px;\n          text-align: left; }\n        #poll-list .list table th.date-created {\n          text-align: right; }\n      #poll-list .list table td.title {\n        width: 600px;\n        text-align: left;\n        padding: 5px;\n        padding-left: 10px; }\n        #poll-list .list table td.title a {\n          color: #bbbbff;\n          text-decoration: none; }\n          #poll-list .list table td.title a:hover {\n            color: #ccccee;\n            text-decoration: none;\n            cursor: pointer; }\n        #poll-list .list table td.title small {\n          font-size: 8px; }\n      #poll-list .list table td.date-created {\n        width: 120px;\n        text-align: right; }\n      #poll-list .list table td.delete {\n        width: 30px;\n        text-align: center; }\n        #poll-list .list table td.delete i {\n          color: #dc3545; }\n        #poll-list .list table td.delete:hover {\n          cursor: pointer; }\n\nbody {\n  background-color: #161620;\n  margin: 40px 0px 0px 0px; }\n", ""]);
+exports.push([module.i, "/* font families */\n#navigation {\n  font-family: \"Courier New\", Courier, monospace;\n  background-color: #333333;\n  color: #aaaaaa;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  min-width: 700px;\n  height: 40px; }\n  #navigation a {\n    text-decoration: none;\n    color: #aaaaaa; }\n  #navigation h2 {\n    position: absolute;\n    margin-top: 10px;\n    margin-bottom: 0px;\n    left: 30px; }\n  #navigation > ul {\n    position: absolute;\n    margin-top: 10px;\n    margin-bottom: 0px;\n    padding: 0px;\n    right: 50px; }\n    #navigation > ul > li {\n      position: relative;\n      display: inline-block;\n      margin: 3px;\n      font-size: 20px;\n      font-weight: 800;\n      text-align: center; }\n      #navigation > ul > li .dropdown {\n        position: absolute;\n        background-color: #333333;\n        color: #aaaaaa;\n        width: 125px;\n        right: 0px;\n        padding-left: 0px;\n        font-size: 14px;\n        list-style-type: none;\n        display: none; }\n        #navigation > ul > li .dropdown li {\n          padding: 10px; }\n          #navigation > ul > li .dropdown li:hover {\n            background-color: #262626;\n            color: #999999; }\n      #navigation > ul > li:hover {\n        border-bottom: 1px solid #cacaca;\n        cursor: pointer; }\n      #navigation > ul > li.username:hover .dropdown {\n        display: block; }\n\n/* font families */\n#home {\n  font-family: Verdana, Geneva, sans-serif;\n  color: #bbbbff;\n  padding-top: 20px;\n  text-align: center; }\n  #home h1 {\n    font-size: 45px;\n    margin-bottom: 2px; }\n  #home h5 {\n    width: 250px;\n    margin: 0 auto;\n    margin-bottom: 20px; }\n  #home a {\n    display: inline-block;\n    color: #bbbbff;\n    border: 1px solid #bbbbff;\n    text-decoration: none;\n    margin: 5px;\n    padding: 7px; }\n\n/* font families */\n#auth {\n  font-family: Verdana, Geneva, sans-serif;\n  background-color: #494949;\n  color: #dddddd;\n  width: 32%;\n  max-width: 300px;\n  min-width: 200px;\n  margin: 0 auto;\n  margin-top: 60px;\n  padding: 20px;\n  text-align: center; }\n  #auth h3 {\n    text-align: center;\n    margin: 10px; }\n  #auth small {\n    display: inline-block;\n    text-align: center;\n    color: red; }\n  #auth form input {\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    margin-bottom: 5px;\n    padding: 5px;\n    width: 70%;\n    box-sizing: border-box; }\n  #auth form i {\n    position: relative;\n    color: red;\n    font-size: 15px;\n    left: -20px;\n    z-index: 2;\n    width: 0px; }\n    #auth form i:hover + div {\n      display: block; }\n  #auth form div {\n    position: absolute;\n    display: none;\n    font-size: 10px;\n    margin-top: -35px;\n    margin-left: 270px;\n    background-color: #28a745;\n    color: #ffffff;\n    border-radius: 3px; }\n    #auth form div ul {\n      list-style-type: none;\n      padding-left: 5px;\n      padding-right: 5px; }\n  #auth button[type=\"submit\"] {\n    display: block;\n    background-color: #00afff;\n    color: white;\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    padding: 8px;\n    width: 70%;\n    cursor: pointer; }\n\n/* font families */\n#poll-create {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #poll-create h1 {\n    color: #bbbbff;\n    text-align: center; }\n  #poll-create .done, #poll-create .form {\n    padding: 10px;\n    width: 600px;\n    min-width: 450px;\n    margin: 0 auto;\n    border: 1px solid #bbbbff; }\n  #poll-create .done {\n    text-align: center; }\n    #poll-create .done h2 {\n      color: #bbbbff;\n      text-align: center; }\n    #poll-create .done button {\n      background-color: #00afff;\n      color: #ffffff;\n      border: 1px solid #00afff;\n      margin: 0 auto;\n      padding: 5px;\n      cursor: pointer; }\n  #poll-create .form input[placeholder=\"Title\"] {\n    width: 100%;\n    height: 35px;\n    background-color: #161620;\n    color: #bbbbff;\n    font-size: 20px;\n    margin-bottom: 20px;\n    padding: 5px;\n    border: none;\n    border-bottom: 3px solid #bbbbff;\n    box-sizing: border-box;\n    outline: none; }\n  #poll-create .form .options {\n    width: 100%;\n    color: #bbbbff;\n    font-size: 15px;\n    padding-top: 5px;\n    padding-bottom: 5px; }\n    #poll-create .form .options + .options {\n      border-top: 1px solid #bbbbff; }\n    #poll-create .form .options span {\n      display: inline-block;\n      width: 95%;\n      padding-left: 6px;\n      box-sizing: border-box; }\n    #poll-create .form .options button {\n      width: 5%;\n      background-color: #dc3545;\n      color: #ffffff;\n      border: 1px solid #dc3545;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n  #poll-create .form .option-input {\n    width: 100%;\n    margin-top: 7px; }\n    #poll-create .form .option-input > input {\n      width: 95%;\n      background-color: #363640;\n      color: #bbbbff;\n      font-size: 15px;\n      border: 1px solid #363640;\n      padding-left: 5px;\n      box-sizing: border-box;\n      outline: none; }\n    #poll-create .form .option-input > button {\n      width: 5%;\n      background-color: #00afff;\n      color: #ffffff;\n      font-size: 15px;\n      border: 1px solid #00afff;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n    #poll-create .form .option-input + button {\n      width: 600px;\n      background-color: #28a745;\n      color: #ffffff;\n      border: 1px solid #28a745;\n      margin-top: 10px;\n      padding: 5px;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n      #poll-create .form .option-input + button.disabled {\n        background-color: #335533;\n        color: #999999;\n        border-color: #335533;\n        cursor: default; }\n\n/* font families */\n#poll-list {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #poll-list > h1 {\n    color: #bbbbff;\n    width: 750px;\n    margin: 0 auto;\n    margin-bottom: 30px;\n    text-align: center; }\n  #poll-list .list {\n    border: 1px solid white;\n    width: 750px;\n    max-height: 400px;\n    overflow-y: auto;\n    margin: 0 auto; }\n    #poll-list .list table {\n      display: inline-block;\n      color: #bbbbff;\n      width: 100%;\n      border-collapse: collapse;\n      box-sizing: border-box; }\n      #poll-list .list table tr.poll-row + tr.poll-row {\n        border-top: 1px solid white; }\n      #poll-list .list table th {\n        width: 100%;\n        height: 20px; }\n        #poll-list .list table th.title {\n          padding-left: 10px;\n          text-align: left; }\n        #poll-list .list table th.date-created {\n          text-align: right; }\n      #poll-list .list table td.title {\n        width: 600px;\n        text-align: left;\n        padding: 5px;\n        padding-left: 10px; }\n        #poll-list .list table td.title a {\n          color: #bbbbff;\n          text-decoration: none; }\n          #poll-list .list table td.title a:hover {\n            color: #ccccee;\n            text-decoration: none;\n            cursor: pointer; }\n        #poll-list .list table td.title small {\n          font-size: 8px; }\n      #poll-list .list table td.date-created {\n        width: 120px;\n        text-align: right; }\n      #poll-list .list table td.delete {\n        width: 30px;\n        text-align: center; }\n        #poll-list .list table td.delete i {\n          color: #dc3545; }\n          #poll-list .list table td.delete i:hover {\n            cursor: pointer; }\n  #poll-list .delete-prompt {\n    display: none; }\n    #poll-list .delete-prompt .overlay {\n      position: fixed;\n      left: 0;\n      right: 0;\n      top: 0;\n      bottom: 0;\n      background-color: #ffffff;\n      opacity: 0.12;\n      z-index: 1; }\n    #poll-list .delete-prompt .content {\n      position: fixed;\n      background-color: #ffffff;\n      left: 50%;\n      top: 50%;\n      width: 500px;\n      height: 150px;\n      margin-left: -250px;\n      margin-top: -75px;\n      text-align: center;\n      border-radius: 5px;\n      z-index: 2; }\n      #poll-list .delete-prompt .content div {\n        width: 80%;\n        margin: 0 auto; }\n        #poll-list .delete-prompt .content div button {\n          color: #ffffff;\n          width: 100px;\n          height: 30px;\n          margin: 5px;\n          border: none;\n          outline: none; }\n          #poll-list .delete-prompt .content div button.confirm {\n            background-color: #dc3545; }\n          #poll-list .delete-prompt .content div button.cancel {\n            background-color: #aaaaaa; }\n          #poll-list .delete-prompt .content div button:hover {\n            cursor: pointer; }\n\nbody {\n  background-color: #161620;\n  margin: 40px 0px 0px 0px; }\n", ""]);
 
 // exports
 
