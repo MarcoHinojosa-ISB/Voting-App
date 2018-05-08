@@ -16,10 +16,11 @@ class App extends React.Component{
     else if(this.props.type === "create")
       var content = <PollCreate />
     else if(this.props.type === "view")
-      var content = <div></div>
+      var content = <PollView pollId={this.props.match.params.id}/>
+
 
     return (
-      <div>
+      <div id="poll-content">
         {content}
       </div>
     );

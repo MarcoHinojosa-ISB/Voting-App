@@ -31,6 +31,27 @@ function retrieveOwnPolls(data, callback){
   })
 }
 
+function retrieveSinglePoll(data, callback){
+  query("SELECT * FROM polls WHERE id=$1", [data.id], function(err, result){
+    if(err)
+      callback("unable to retrieve poll", null);
+    else{
+      data = result.rows[0];
+      retrievePollOptions(data, callback);
+    }
+  })
+}
+function retrievePollOptions(data, callback){
+  query("SELECT * FROM poll_options WHERE poll_id=$1 GROUP BY poll_options.id", [data.id], function(err, result){
+    if(err)
+      callback("unable to retrieve poll options", null);
+    else{
+      data["options"] = result.rows;
+      callback(null, data);
+    }
+  })
+}
+
 function createPoll(data, callback){
   query("SELECT id FROM users WHERE username=$1;", [data.uname], function(err, result){
     if(err)
@@ -52,7 +73,6 @@ function createPollOptions(data, callback){
     query("INSERT INTO poll_options (poll_id, option_content) values ($1, $2);", [data.poll_id, data.options[i]], function(err){
       if(err){
         dbError = true;
-        console.log(err)
         callback("Unable to enter poll option");
       }
     })
@@ -62,25 +82,47 @@ function createPollOptions(data, callback){
     callback(null);
 }
 
+function createPollOption(data, callback){
+    query("INSERT INTO poll_options (poll_id, option_content) values ($1, $2);", [data.poll_id, data.option_content], function(err){
+      if(err)
+        callback("Unable to enter poll option");
+      else
+        callback(null);
+    });
+}
+
 function deletePoll(data, callback){
     query("DELETE FROM polls WHERE id=$1", [data.id], function(err){
-      if(err){
+      if(err)
         callback(err)
-      }
-      else{
-        query("DELETE FROM poll_options WHERE poll_id=$1", [data.id], function(err){
-          if(err)
-            callback(err);
-          else
-            callback(null);
-        })
-      }
+      else
+        deletePollOptions(data, callback);
     })
+}
+function deletePollOptions(data, callback){
+  query("DELETE FROM poll_options WHERE poll_id=$1", [data.id], function(err){
+    if(err)
+      callback(err);
+    else
+      callback(null);
+  })
+}
+
+function submitVote(data, callback){
+  query("UPDATE poll_options SET votes = votes + 1 WHERE id=$1", [data.id], function(err){
+    if(err)
+      callback(err);
+    else
+      callback(null);
+  })
 }
 
 module.exports = {
   retrievePolls: retrievePolls,
   retrieveOwnPolls: retrieveOwnPolls,
+  retrieveSinglePoll: retrieveSinglePoll,
   createPoll: createPoll,
-  deletePoll: deletePoll
+  createPollOption: createPollOption,
+  deletePoll: deletePoll,
+  submitVote: submitVote
 }

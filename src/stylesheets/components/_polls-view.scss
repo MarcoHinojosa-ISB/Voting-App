@@ -1,0 +1,104 @@
+@import '../helpers/colors';
+@import '../helpers/typography';
+
+#poll-view{
+  font-family: $sans-serif;
+  padding-top: 20px;
+
+  h1{
+    color: $polls-font;
+    text-align: center;
+  }
+  .form{
+    color: $polls-font;
+    border: 1px solid $polls-border;
+    width: 400px;
+    margin: 0 auto;
+
+    .poll-options-list{
+      div{
+        margin: 0px 10px 0px 10px;
+        padding: 5px 0px 5px 0px;
+
+        +div{
+          border-top: 1px solid $polls-border;
+        };
+      }
+    }
+    .poll-options-add{
+      margin: 0px 10px 5px 10px;
+      height: 20px;
+
+      input{
+        width: 95%;
+        height: 100%;
+        padding-left: 6px;
+        border: none;
+        box-sizing: border-box;
+      }
+      button{
+        background-color: $primary-bg;
+        color: $polls-btn-font;
+        width: 5%;
+        height: 100%;
+        border: none;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+    }
+    .poll-options-other{
+      margin: 5px 10px 5px 10px;
+
+      button{
+        background-color: $primary-bg;
+        color: $polls-btn-font;
+        border: none;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+      span{
+        color: $polls-btn-font;
+        font-size: 14px;
+        height: 100%;
+        float: right;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .chart{
+    margin: 0 auto;
+    width: 900px;
+    border: 1px solid $polls-border;
+    font-size: 0px;
+    box-sizing: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+    .labels{
+      color: $polls-font;
+      width: 350px;
+      height: 19px;
+      font-size: 16px;
+      display: inline-block;
+      text-align: right;
+      box-sizing: border-box;
+    }
+    .bars{
+      width: 550px;
+      display: inline-block;
+      @for $i from 1 through 100 {
+        .vote-percentage-#{$i}{
+          $value: ($i * 1%);
+          width: $value;
+          height: 19px;
+          background-color: $polls-font;
+          box-sizing: border-box;
+          margin: 0px;
+          padding: 0px;
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+}
