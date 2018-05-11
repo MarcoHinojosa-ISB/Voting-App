@@ -1,6 +1,7 @@
 @import '../helpers/colors';
 @import '../helpers/typography';
-#poll-create{
+
+#polls-create{
   font-family: $sans-serif;
   padding-top: 20px;
 
@@ -33,6 +34,7 @@
       cursor: pointer;
     }
   }
+
   .form{
     input[placeholder="Title"]{
       width: 100%;
@@ -47,6 +49,7 @@
       box-sizing: border-box;
       outline: none;
     }
+
     .options{
       width: 100%;
       color: $polls-font;
@@ -55,13 +58,15 @@
       padding-bottom: 5px;
 
       +.options{
+        clear: both;
         border-top: 1px solid $polls-input-border;
       }
 
-      span{
-        display: inline-block;
+      div{
+        float: left;
         width: 95%;
         padding-left: 6px;
+        word-wrap: break-word;
         box-sizing: border-box;
       }
       button{
@@ -74,25 +79,26 @@
         cursor: pointer;
       }
     }
+
     .option-input{
       width: 100%;
       margin-top: 7px;
 
       // Option input field+button
-      >input{
-        width: 95%;
+      input{
         background-color: $polls-input-bg;
         color: $polls-font;
+        width: 95%;
         font-size: 15px;
         border: 1px solid $polls-input-bg;
         padding-left: 5px;
         box-sizing: border-box;
         outline: none;
       }
-      >button{
-        width: 5%;
+      button{
         background-color: $primary-bg;
         color: $polls-btn-font;
+        width: 5%;
         font-size: 15px;
         border: 1px solid $primary-bg;
         box-sizing: border-box;

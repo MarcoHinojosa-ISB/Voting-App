@@ -62,11 +62,11 @@ class App extends React.Component{
       this.props.history.push("/");
   }
   render(){
-    //render currently added options
+    //render currently added options + submit button
     var options = this.state.options.map((val, i) => {
       return (
         <div className="options" key={i}>
-          <span>{val}</span><button type="button" onClick={() => this.removeOption(i)}>x</button>
+          <div>{val}</div><button type="button" onClick={() => this.removeOption(i)}>x</button>
         </div>
       )
     });
@@ -74,9 +74,9 @@ class App extends React.Component{
       <button type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
     ) : (
       <button type="button" className="disabled">Submit</button>
-    )
+    );
 
-    //poll created
+    //poll created / input form
     if(this.state.pollCreated){
       var content = (
         <div className="done">
@@ -85,15 +85,13 @@ class App extends React.Component{
         </div>
       )
     }
-
-    //input form
     else{
       var content = (
         <div className="form">
-          <input type="text" placeholder="Title" maxLength="20" onChange={this.setTitle.bind(this)}/>
+          <input type="text" placeholder="Title" maxLength="30" onChange={this.setTitle.bind(this)}/>
           {options}
           <div className="option-input">
-            <input type="text" placeholder="Add an option" maxLength="20"
+            <input type="text" placeholder="Add an option" maxLength="50"
               value={this.state.newOption}
               onChange={this.setNewOption.bind(this)}
               onKeyPress={this.handleKeyPress.bind(this)}/>
@@ -105,7 +103,7 @@ class App extends React.Component{
     }
 
     return (
-      <div id="poll-create">
+      <div id="polls-create">
         <h1>Create a new poll below</h1>
         {content}
       </div>

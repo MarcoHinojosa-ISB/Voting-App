@@ -1,11 +1,12 @@
 import React from "react";
 import Axios from "axios";
+import {Link, withRouter} from "react-router-dom";
 import store from "../../store/index.jsx";
 
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {poll: null, newOption: "", selected: null, showResults: false};
+    this.state = {poll: null, newOption: "", selected: null};
   }
 
   // Custom Methods
@@ -32,7 +33,7 @@ class App extends React.Component{
   retrievePollData(pollId){
     Axios.post("/api/polls/retrieve-single-poll", {id: pollId})
     .then(result => {
-      console.log(result.data);
+      console.log(result.data)
       this.setState({poll: result.data, newOption: ""});
     })
     .catch(err => {
@@ -40,6 +41,7 @@ class App extends React.Component{
     })
   }
   displayPollOptions(){
+    // render poll options
     var options = this.state.poll.options.map( (val, i) => {
       return (
         <div key={i}>
@@ -48,7 +50,7 @@ class App extends React.Component{
       )
     });
 
-    // Check if user is logged in
+    // render additional option input if logged in
     if(store.getState().user.username){
       var addOption = (
         <div className="poll-options-add">
@@ -61,7 +63,10 @@ class App extends React.Component{
       )
     }
     else{
-      var addOption = (<div></div>)
+      var addOption = (
+        <div className="poll-options-add">
+          <div>Log in to add a new option</div>
+        </div>)
     }
 
     return (
@@ -72,41 +77,28 @@ class App extends React.Component{
         {addOption}
         <div className="poll-options-other">
           <button type="button" onClick={this.submitVote.bind(this)}>Submit</button>
-          <span onClick={this.showResults.bind(this)}>View Poll Results</span>
+          <Link to={"/chart/"+this.state.poll.id}>View Poll Results</Link>
         </div>
       </div>
     )
   }
   submitVote(){
     if(this.state.selected){
-      Axios.put("/api/polls/submit-vote", {id: this.state.selected})
+      let data = {
+        poll_id: this.state.poll.id,
+        option_id: this.state.selected,
+        voted_users: this.state.poll.voted_users,
+        username: store.getState().user.username
+      }
+
+      Axios.put("/api/polls/submit-vote", data)
       .then(result => {
-        this.setState({selected: null, showResults: true})
+        this.props.history.push("/chart/"+this.state.poll.id);
       })
       .catch(err => {
         console.log(err);
       })
     }
-  }
-  showResults(){
-    this.setState({selected: null, showResults: true});
-  }
-  displayChartLabels(){
-    return this.state.poll.options.map( (val, i) => {
-      return <div key={i} className="label">{val.option_content}</div>
-    })
-  }
-  displayChartBars(){
-    var totalVotes = 0;
-    for(let i=0; i<this.state.poll.options.length; i++){
-      totalVotes += this.state.poll.options[i].votes;
-    }
-
-
-    return this.state.poll.options.map( (val, i) => {
-      let className = "vote-percentage-"+ Math.round((val.votes / totalVotes) * 100);
-      return <div key={i} className={className}></div>
-    })
   }
 
   componentDidMount(){
@@ -118,39 +110,27 @@ class App extends React.Component{
 
   render(){
     if(this.state.poll){
-      if(this.state.showResults){
-        let labels = this.displayChartLabels();
-        let bars = this.displayChartBars();
+      let options = this.displayPollOptions();
 
-        return (
-          <div id="poll-view">
-            <h1>Results of {this.state.poll.title}</h1>
-            <div className="chart">
-              <div className="labels">{labels}</div>
-              <div className="bars">{bars}</div>
-            </div>
+      return (
+        <div id="polls-view">
+          <h3>{this.state.poll.title}</h3>
+          <small>Created by {this.state.poll.user.username}</small>
+          {options}
+          <div className="links">
+            <Link to={"/polls"}>View other polls</Link>
           </div>
-        )
-      }
-      else{
-        let options = this.displayPollOptions();
-
-        return (
-          <div id="poll-view">
-            <h1>{this.state.poll.title}</h1>
-            {options}
-          </div>
-        )
-      }
+        </div>
+      )
     }
     else{
       return(
-        <div id="poll-view">
-          <i className="fa fa-spinner fa-spin"></i>
+        <div id="polls-view">
+          <i className="loading fa fa-spinner fa-spin"></i>
         </div>
       )
     }
   }
 }
 
-export default App;
+export default withRouter(App);

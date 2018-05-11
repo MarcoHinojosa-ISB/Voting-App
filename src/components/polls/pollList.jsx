@@ -26,7 +26,6 @@ class App extends React.Component{
       else{
         Axios.get("/api/polls/retrieve-polls")
         .then(result => {
-          console.log(result.data);
           this.setState({polls: result.data, listType: "list"});
         })
         .catch(err => {
@@ -40,14 +39,14 @@ class App extends React.Component{
       let tmpDate = Moment(new Date(val.date_created), 'MM-DD-YYYY').format('MM/DD/YYYY');
 
       return this.props.type === "list-own" ? (
-        <tr className="poll-row" key={i}>
+        <tr className="row" key={i}>
           <td className="title"><Link to={"/poll/"+val.id}>{val.title}</Link> <small>[{val.sum} votes]</small></td>
           <td className="date-created"><small>{tmpDate}</small></td>
           <td className="delete"><i className="fa fa-window-close" onClick={this.showPrompt.bind(this, val)}></i></td>
         </tr>
       ) : (
-        <tr className="poll-row" key={i}>
-          <td className="title"><Link to={"/poll/"+val.id}>{val.title}</Link> <small>[{val.sum} votes]</small></td>
+        <tr className="row" key={i}>
+          <td className="title all"><Link to={"/poll/"+val.id}>{val.title}</Link> <small>[{val.sum} votes]</small></td>
           <td className="date-created"><small>{tmpDate}</small></td>
           <td className="delete"></td>
         </tr>
@@ -81,7 +80,6 @@ class App extends React.Component{
 
   // Life cycle methods
   componentWillMount(){
-    console.log("mount")
     if(this.props.type === "list-own" && !store.getState().user.username)
       this.props.history.push("/");
   }
@@ -90,7 +88,6 @@ class App extends React.Component{
     this.retrievePolls();
   }
   componentWillReceiveProps(nextProps){
-    console.log("props")
     //in case the user activates "delete prompt", does nothing, then goes to list of ALL polls
     if(nextProps.type === "list")
       this.hidePrompt();
@@ -100,26 +97,31 @@ class App extends React.Component{
     //get poll list rendered
     var tmp = this.displayPolls();
 
-
     return (
-      <div id="poll-list">
+      <div id="polls-list">
         <h1>{this.props.type === "list-own" ? ("My Polls") : ("Polls")}</h1>
 
-        <div className="list">
-          <table>
+          <table className="heading">
             <tbody>
               {this.props.type === "list-own" ? (
                 <tr>
-                  <th className="title">Title</th>
-                  <th className="date-created">Date</th>
-                  <th><i className="fa fa-trash"></i></th>
+                  <th className="title"><b>Title</b></th>
+                  <th className="date-created"><b>Date</b></th>
+                  <th className="delete"><i className="fa fa-trash"></i></th>
                 </tr>
               ) : (
                 <tr>
-                  <th className="title">Title</th>
-                  <th className="date-created">Date</th>
+                  <th className="title"><b>Title</b></th>
+                  <th className="date-created"><b>Date</b></th>
+                  <th className="delete"></th>
                 </tr>
               )}
+            </tbody>
+          </table>
+        <div className="list">
+          <table>
+            <tbody>
+
               {tmp}
             </tbody>
           </table>

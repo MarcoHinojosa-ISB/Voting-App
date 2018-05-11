@@ -2,6 +2,7 @@ import React from 'react';
 import PollList from './pollList.jsx';
 import PollCreate from './pollCreate.jsx';
 import PollView from './pollView.jsx';
+import PollChart from './pollChart.jsx';
 
 class App extends React.Component{
   constructor(props){
@@ -17,6 +18,8 @@ class App extends React.Component{
       var content = <PollCreate />
     else if(this.props.type === "view")
       var content = <PollView pollId={this.props.match.params.id}/>
+    else if(this.props.type === "chart")
+      var content = <PollChart pollId={this.props.match.params.id}/>
 
 
     return (

@@ -1,14 +1,14 @@
 @import '../helpers/colors';
 @import '../helpers/typography';
 
-$table-total-width: 750px;
-$table-title-width: 600px;
-$table-date-width: 120px;
-$table-delete-width: 30px;
+$table-total-width: 850px;
+$table-title-width: 85%;
+$table-date-width: 10%;
+$table-delete-width: 5%;
 $prompt-width: 500px;
 $prompt-height: 150px;
 
-#poll-list{
+#polls-list{
   font-family: $sans-serif;
   padding-top: 20px;
 
@@ -20,76 +20,83 @@ $prompt-height: 150px;
     text-align: center;
   }
 
-  // table
+  // table container
   .list{
-    border: 1px solid white;
     width: $table-total-width;
     max-height: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
     margin: 0 auto;
+  }
 
-    table{
-      display: inline-block;
-      color: $polls-font;
-      width: 100%;
-      border-collapse: collapse;
-      box-sizing: border-box;
+  // table styles
+  table{
+    width: $table-total-width;
+    color: $polls-font;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 0 auto;
+    border: 1px solid $polls-border;
 
-      // borders to separate polls
-      tr.poll-row{
-        +tr.poll-row{
-          border-top: 1px solid white;
-        }
+    // borders to separate polls
+    tr.row + tr.row{
+      border-top: 1px solid white;
+    }
+
+    th{
+      background-color: $polls-border;
+      color: $bg;
+      height: 20px;
+
+
+      &.title{
+        width: $table-title-width;
+        padding-left: 10px;
+        text-align: left;
       }
-
-      th{
-        width: 100%;
-        height: 20px;
-
-        &.title{
-          padding-left: 10px;
-          text-align: left;
-        }
-        &.date-created{
-          text-align: right;
-        }
+      &.date-created{
+        width: $table-date-width;
+        text-align: left;
       }
-      td{
-        &.title{
-          width: $table-title-width;
-          text-align: left;
-          padding: 5px;
-          padding-left: 10px;
+      &.delete{
+        width: $table-delete-width;
+        text-align: left;
 
-          a{
-            color: $polls-font;
+      }
+    }
+    td{
+      &.title{
+        width: $table-title-width;
+        text-align: left;
+        padding: 5px;
+        padding-left: 10px;
+
+        a{
+          color: $polls-font;
+          text-decoration: none;
+
+          &:hover{
+            color: $polls-hover-font;
             text-decoration: none;
-
-            &:hover{
-              color: $polls-hover-font;
-              text-decoration: none;
-              cursor: pointer;
-            }
-          }
-          small{
-            font-size: 8px;
+            cursor: pointer;
           }
         }
-        &.date-created{
-          width: $table-date-width;
-          text-align: right;
+        small{
+          font-size: 8px;
         }
-        &.delete{
-          width: $table-delete-width;
-          text-align: center;
+      }
+      &.date-created{
+        width: $table-date-width;
+        text-align: left;
+        padding-right: 30px;
+      }
+      &.delete{
+        color: $warning-bg;
+        width: $table-delete-width;
+        text-align: left;
 
-          i{
-            color: $warning-bg;
-
-            &:hover{
-              cursor: pointer;
-            }
-          }
+        i:hover{
+          cursor: pointer;
         }
       }
     }
@@ -132,7 +139,7 @@ $prompt-height: 150px;
           height: 30px;
           margin: 5px;
           outline: none;
-          
+
 
           &.confirm{
             background-color: $warning-bg;

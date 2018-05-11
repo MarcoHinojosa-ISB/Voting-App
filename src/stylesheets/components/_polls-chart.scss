@@ -1,0 +1,121 @@
+@import '../helpers/colors.scss';
+@import '../helpers/typography.scss';
+
+$chart-total-width: 700px;
+$chart-label-width: 45%;
+$chart-percentage-width: 10%;
+$chart-bar-width: 30%;
+$chart-votes-width: 15%;
+
+#polls-chart{
+  font-family: $sans-serif;
+  padding-top: 20px;
+
+  .loading{
+    display: block;
+    color: $polls-font;
+    font-size: 50px;
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  h3{
+    color: $polls-font;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  table{
+    font-size: 12px;
+    color: $polls-font;
+    width: $chart-total-width;
+    margin: 0 auto;
+    border: 1px solid #494953;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    .row{
+      width: $chart-total-width;
+      &:nth-of-type(2n - 1){
+        background-color: #494953;
+      }
+
+      .label{
+        width: $chart-label-width;
+        padding-left: 3px;
+        span{
+          display: block;
+          width: 100%;
+          word-wrap: break-word;
+        }
+      }
+      .percentage{
+        width: $chart-percentage-width;
+      }
+      .bar{
+        width: $chart-bar-width;
+        height: 15px;
+      }
+      @for $i from 1 through 100{
+        .bar-#{$i}{
+          background-color: $polls-font;
+          width: 1% * $i;
+          height: 13px;
+          box-sizing: border-box;
+        }
+      }
+      .votes{
+        width: $chart-votes-width;
+        padding-left: 3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .total{
+    font-size: 12px;
+    color: $polls-font;
+    width: $chart-total-width;
+    margin: 0 auto;
+    overflow: hidden;
+
+    div{
+      float: left;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 0px;
+      box-sizing: border-box;
+
+      &.label{
+        width: 85%;
+        padding-left: 3px;
+      }
+      &.votes{
+        width: 15%;
+        padding-left: 3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .links{
+    text-align: center;
+
+    a{
+      display: inline-block;
+      color: $polls-font;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid $polls-border;
+      margin: 7px;
+      padding: 5px;
+
+      &:hover{
+        background-color: $polls-font;
+        color: $bg;
+      }
+    }
+  }
+}

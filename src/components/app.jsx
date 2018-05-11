@@ -26,6 +26,7 @@ class App extends React.Component{
           <Switch>
             <Route exact path="/" render={(props) => <Home {...props} />} />
             <Route path="/poll/:id" render={(props) => <Polls type={"view"}{...props} />} />
+            <Route path="/chart/:id" render={(props) => <Polls type={"chart"}{...props} />} />
             <Route path="/polls" render={(props) => <Polls type={"list"}{...props} />} />
             <Route path="/polls-own" render={(props) => <Polls type={"list-own"}{...props} />} />
             <Route path="/poll-create" render={(props) => <Polls type={"create"}{...props} />} />

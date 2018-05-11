@@ -4,7 +4,7 @@ var query = require("../pg-connect.js").query;
 function retrievePolls(callback){
   query("SELECT polls.id, polls.user_id, polls.title, polls.date_created, SUM(poll_options.votes)"+
   "FROM polls, poll_options WHERE polls.id=poll_options.poll_id"+
-  " GROUP BY polls.id, polls.user_id, polls.title, polls.date_created;",
+  " GROUP BY polls.id, polls.user_id, polls.title, polls.date_created ORDER BY polls.date_created;",
     [], function(err, result){
       if(err)
         callback("Unable to retrieve polls", null);
@@ -20,7 +20,7 @@ function retrieveOwnPolls(data, callback){
     else{
       query("SELECT polls.id, polls.title, polls.date_created, SUM(poll_options.votes)"+
       "FROM polls, poll_options WHERE polls.user_id=$1 AND polls.id=poll_options.poll_id"+
-      " GROUP BY polls.id, polls.title, polls.date_created;",
+      " GROUP BY polls.id, polls.title, polls.date_created ORDER BY polls.date_created;",
         [result.rows[0].id], function(err, result){
           if(err)
             callback("Unable to retrieve polls", null);
@@ -37,12 +37,22 @@ function retrieveSinglePoll(data, callback){
       callback("unable to retrieve poll", null);
     else{
       data = result.rows[0];
+      retrieveUserByPoll(data, callback);
+    }
+  })
+}
+function retrieveUserByPoll(data, callback){
+  query("SELECT username, firstname, lastname, date_created from users where id=$1", [data.user_id], function(err, result){
+    if(err)
+      callback("unable to retrieve author of poll", null);
+    else{
+      data["user"] = result.rows[0];
       retrievePollOptions(data, callback);
     }
   })
 }
 function retrievePollOptions(data, callback){
-  query("SELECT * FROM poll_options WHERE poll_id=$1 GROUP BY poll_options.id", [data.id], function(err, result){
+  query("SELECT * FROM poll_options WHERE poll_id=$1 ORDER BY date_created", [data.id], function(err, result){
     if(err)
       callback("unable to retrieve poll options", null);
     else{
@@ -109,13 +119,22 @@ function deletePollOptions(data, callback){
 }
 
 function submitVote(data, callback){
-  query("UPDATE poll_options SET votes = votes + 1 WHERE id=$1", [data.id], function(err){
+  query("UPDATE poll_options SET votes = votes + 1 WHERE id=$1", [data.option_id], function(err){
+    if(err)
+      callback(err);
+    else
+      lockUserVote(data, callback);
+  })
+}
+function lockUserVote(data, callback){
+  query("UPDATE polls SET voted_users = $1 WHERE id=$2", [data.voted_users, data.poll_id], function(err){
     if(err)
       callback(err);
     else
       callback(null);
   })
 }
+
 
 module.exports = {
   retrievePolls: retrievePolls,

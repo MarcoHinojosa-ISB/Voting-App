@@ -1,14 +1,31 @@
 @import '../helpers/colors';
 @import '../helpers/typography';
 
-#poll-view{
+#polls-view{
   font-family: $sans-serif;
   padding-top: 20px;
 
-  h1{
+  .loading{
+    display: block;
     color: $polls-font;
+    font-size: 50px;
+    margin-top: 50px;
     text-align: center;
   }
+
+  h3{
+    color: $polls-font;
+    text-align: center;
+    margin-bottom: 0px;
+
+    + small{
+      display: block;
+      color: $polls-font;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+
   .form{
     color: $polls-font;
     border: 1px solid $polls-border;
@@ -19,85 +36,81 @@
       div{
         margin: 0px 10px 0px 10px;
         padding: 5px 0px 5px 0px;
+        overflow:hidden;
+        word-wrap: break-word;
+
+        input{
+          float: left;
+        }
 
         +div{
           border-top: 1px solid $polls-border;
-        };
+        }
       }
     }
     .poll-options-add{
-      margin: 0px 10px 5px 10px;
-      height: 20px;
+      margin: 0px 10px 0px 10px;
 
+      div{
+        text-align: center;
+      }
       input{
+        background-color: $polls-input-bg;
+        color: $polls-font;
         width: 95%;
-        height: 100%;
+        height: 20px;
         padding-left: 6px;
         border: none;
         box-sizing: border-box;
+        outline: none;
       }
       button{
         background-color: $primary-bg;
         color: $polls-btn-font;
         width: 5%;
-        height: 100%;
+        height: 20px;
         border: none;
         cursor: pointer;
         box-sizing: border-box;
+        outline: none;
       }
     }
     .poll-options-other{
-      margin: 5px 10px 5px 10px;
+      margin: 10px 10px 5px 10px;
 
       button{
         background-color: $primary-bg;
         color: $polls-btn-font;
+        height: 20px;
         border: none;
         cursor: pointer;
         box-sizing: border-box;
       }
-      span{
-        color: $polls-btn-font;
+      a{
+        color: $polls-font;
         font-size: 14px;
-        height: 100%;
         float: right;
+        text-decoration: underline;
         cursor: pointer;
       }
     }
   }
 
-  .chart{
-    margin: 0 auto;
-    width: 900px;
-    border: 1px solid $polls-border;
-    font-size: 0px;
-    box-sizing: 0px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+  .links{
+    text-align: center;
 
-    .labels{
+    a{
+      display: inline-block;
       color: $polls-font;
-      width: 350px;
-      height: 19px;
-      font-size: 16px;
-      display: inline-block;
-      text-align: right;
-      box-sizing: border-box;
-    }
-    .bars{
-      width: 550px;
-      display: inline-block;
-      @for $i from 1 through 100 {
-        .vote-percentage-#{$i}{
-          $value: ($i * 1%);
-          width: $value;
-          height: 19px;
-          background-color: $polls-font;
-          box-sizing: border-box;
-          margin: 0px;
-          padding: 0px;
-          border: 1px solid black;
-        }
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid $polls-border;
+      margin: 7px;
+      padding: 5px;
+
+      &:hover{
+        background-color: $polls-font;
+        color: $bg;
       }
     }
   }
