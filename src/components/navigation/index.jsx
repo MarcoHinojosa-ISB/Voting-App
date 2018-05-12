@@ -9,8 +9,20 @@ class App extends React.Component{
   }
 
   // Custom Methods
+  home(){
+    this.props.history.push("/");
+  }
   myPolls(){
     this.props.history.push("/polls-own");
+  }
+  createPolls(){
+    this.props.history.push("/poll-create");
+  }
+  logIn(){
+    this.props.history.push("/login");
+  }
+  signUp(){
+    this.props.history.push("/signup");
   }
   logOut(){
     store.dispatch(loggedOut());
@@ -28,6 +40,7 @@ class App extends React.Component{
             {user.username} <i className="fa fa-angle-down"></i>
             <ul className="dropdown">
               <li onClick={this.myPolls.bind(this)}>My polls</li>
+              <li onClick={this.createPolls.bind(this)}>Create a Poll</li>
               <li onClick={this.logOut.bind(this)}>Logout</li>
             </ul>
           </li>
@@ -37,15 +50,15 @@ class App extends React.Component{
     else{
       var links = (
         <ul>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/signup">Signup</Link></li>
+          <li onClick={this.logIn.bind(this)}>Login</li>
+          <li onClick={this.signUp.bind(this)}>Signup</li>
         </ul>
       )
     }
 
     return (
       <div id="navigation">
-        <h2><Link to="/" >PollBot</Link></h2>
+        <h2 onClick={this.home.bind(this)}>PollBot</h2>
 
         {links}
       </div>

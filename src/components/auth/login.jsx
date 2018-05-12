@@ -24,11 +24,11 @@ class App extends React.Component{
       this.props.history.push(result.data.redirect);
     })
     .catch(err => {
-      console.log(err);
-      if(err.data.status === 404)
+      console.log(err.response.status);
+      if(err.response.status === 404)
         this.setState({error: "Something went wrong, try again later"});
       else
-        this.setState({error: err.data.responseText});
+        this.setState({error: err.response.data});
     })
     event.preventDefault();
   }

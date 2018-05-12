@@ -9,9 +9,10 @@ import Polls from "./polls/index.jsx";
 class Empty extends React.Component{
   render(){
     return(
-      <h1>
-        Default Route
-      </h1>
+      <div id="page-not-found">
+        <h1>404</h1>
+        <h2>page does not exist</h2>
+      </div>
     );
   }
 }
@@ -32,6 +33,7 @@ class App extends React.Component{
             <Route path="/poll-create" render={(props) => <Polls type={"create"}{...props} />} />
             <Route path="/login" render={(props) => <Auth login={true} {...props} />} />
             <Route path="/signup" render={(props) => <Auth login={false} {...props} />} />
+            <Route component={Empty} />
           </Switch>
         </div>
       </Router>

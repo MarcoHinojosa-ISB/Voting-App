@@ -49,9 +49,13 @@ class App extends React.Component {
       // check username
       if(this.state.uname.length === 0)
         this.unameErrors.push("Username cannot be empty");
-      if(result.data.length >= 1){
+      if(!this.state.uname.match(/^[A-Za-z]/))
+        this.unameErrors.push("Username must start with a letter")
+      if(!this.state.uname.match(/^\w+$/))
+        this.unameErrors.push("Username cannot contain special characters or spaces");
+      if(result.data.length >= 1)
         this.unameErrors.push("Username already exists");
-      }
+
       // check password
       if(this.state.pass.length === 0)
         this.passErrors.push("Password cannot be empty");
@@ -64,7 +68,7 @@ class App extends React.Component {
         callback(false);
     })
     .catch(err => {
-      this.serverError = err.responseText;
+      this.serverError = err.response.data;
       callback(true);
     })
   }
@@ -80,8 +84,8 @@ class App extends React.Component {
           this.props.history.push(result.data.redirect);
         })
         .catch(err => {
-          if(err.data.responseText === "Username already exists")
-            this.unameErrors.push(err.data.responseText);
+          if(err.response.data === "Username already exists")
+            this.unameErrors.push(err.response.data);
           else
             this.serverError = true;
           this.setState({errorsFound: true});

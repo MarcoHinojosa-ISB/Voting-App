@@ -12,49 +12,50 @@
   min-width: 700px;
   height: 40px;
 
-  a{
-    text-decoration: none;
-    color: $nav-font;
-  }
-
   // title
   h2{
     position: absolute;
-    margin-top: 10px;
-    margin-bottom: 0px;
+    margin: 0px;
+    line-height: 40px;
     left: 30px;
+    cursor: pointer;
   }
 
   // menu
   >ul{
     position: absolute;
-    margin-top: 10px;
-    margin-bottom: 0px;
+    margin: 0px;
     padding: 0px;
-    right: 50px;
+    height: 100%;
+    right: 30px;
 
     >li{
       position: relative;
       display: inline-block;
-      margin: 3px;
       font-size: 20px;
+      padding-left: 10px;
+      padding-right: 10px;
+      line-height: 40px;
       font-weight: 800;
       text-align: center;
+      box-sizing: border-box;
 
-      // dropdown
-      .dropdown{
+      // dropdown menu
+      ul.dropdown{
         position: absolute;
-        background-color: $nav-bg;
-        color: $nav-font;
-        width: 125px;
-        right: 0px;
-        padding-left: 0px;
-        font-size: 14px;
-        list-style-type: none;
+        width: 150px;
+        line-height: normal;
+        right: 0px;   //right-align dropdown menu
+        padding-left: 0px;  //remove initial spacing
+        list-style-type: none; //remove the dots
         display: none;
 
         // dropdown buttons
         li{
+          background-color: $nav-bg;
+          color: $nav-font;
+          font-size: 14px;
+          width: 100%;
           padding: 10px;
 
           &:hover{
@@ -65,13 +66,12 @@
       }
 
       &:hover{
-        border-bottom: 1px solid $nav-btn-border;
+        background-color: $nav-hover-bg;
         cursor: pointer;
       }
 
-      // show dropdown on hover
       &.username:hover .dropdown{
-        display: block;
+          display: block;
       }
     }
   }
