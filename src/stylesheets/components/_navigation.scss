@@ -27,9 +27,9 @@
     margin: 0px;
     padding: 0px;
     height: 100%;
-    right: 30px;
+    right: 50px;
 
-    >li{
+    li.username{
       position: relative;
       display: inline-block;
       font-size: 20px;
@@ -43,35 +43,36 @@
       // dropdown menu
       ul.dropdown{
         position: absolute;
+        background-color: $bg;
         width: 150px;
         line-height: normal;
+        padding-left: 0px;  //remove left space
         right: 0px;   //right-align dropdown menu
-        padding-left: 0px;  //remove initial spacing
         list-style-type: none; //remove the dots
         display: none;
 
         // dropdown buttons
         li{
           background-color: $nav-bg;
-          color: $nav-font;
           font-size: 14px;
-          width: 100%;
           padding: 10px;
+          clear: right;
+          box-sizing: border-box;
 
           &:hover{
             background-color: $nav-hover-bg;
             color: $nav-hover-font;
+            cursor: pointer;
           }
         }
       }
 
       &:hover{
         background-color: $nav-hover-bg;
-        cursor: pointer;
-      }
 
-      &.username:hover .dropdown{
+        .dropdown{
           display: block;
+        }
       }
     }
   }

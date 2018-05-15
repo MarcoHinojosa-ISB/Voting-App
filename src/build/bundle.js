@@ -5253,48 +5253,6 @@ module.exports = invariant;
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5353,6 +5311,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5377,6 +5377,12 @@ exports.default = store;
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(238);
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5473,7 +5479,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5533,7 +5539,7 @@ module.exports = invariant;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5600,7 +5606,7 @@ var createPath = exports.createPath = function createPath(location) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5671,7 +5677,7 @@ var createPath = function createPath(location) {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5695,7 +5701,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5709,7 +5715,7 @@ module.exports = emptyObject;
 
 
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -5764,7 +5770,7 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5772,7 +5778,7 @@ module.exports = warning;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return locationsAreEqual; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resolve_pathname__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_value_equal__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PathUtils__ = __webpack_require__(14);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -5840,12 +5846,6 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 };
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(238);
-
-/***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5860,8 +5860,8 @@ module.exports = __webpack_require__(238);
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(11);
-  var warning = __webpack_require__(15);
+  var invariant = __webpack_require__(12);
+  var warning = __webpack_require__(16);
   var ReactPropTypesSecret = __webpack_require__(19);
   var loggedTypeFailures = {};
 }
@@ -5951,7 +5951,7 @@ var _valueEqual = __webpack_require__(35);
 
 var _valueEqual2 = _interopRequireDefault(_valueEqual);
 
-var _PathUtils = __webpack_require__(12);
+var _PathUtils = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6582,7 +6582,7 @@ module.exports = ExecutionEnvironment;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(7);
+var emptyFunction = __webpack_require__(8);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -19946,7 +19946,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(177);
-module.exports = __webpack_require__(263);
+module.exports = __webpack_require__(264);
 
 
 /***/ }),
@@ -19986,7 +19986,7 @@ _reactDom2.default.render(_react2.default.createElement(_app2.default, null), do
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(10),n=__webpack_require__(14),p=__webpack_require__(7),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(11),n=__webpack_require__(15),p=__webpack_require__(8),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -20022,11 +20022,11 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(10);
-var emptyObject = __webpack_require__(14);
-var invariant = __webpack_require__(11);
-var warning = __webpack_require__(15);
-var emptyFunction = __webpack_require__(7);
+var _assign = __webpack_require__(11);
+var emptyObject = __webpack_require__(15);
+var invariant = __webpack_require__(12);
+var warning = __webpack_require__(16);
+var emptyFunction = __webpack_require__(8);
 var checkPropTypes = __webpack_require__(18);
 
 // TODO: this is special because it gets imported during build.
@@ -21428,7 +21428,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(1),l=__webpack_require__(28),B=__webpack_require__(10),C=__webpack_require__(7),ba=__webpack_require__(29),da=__webpack_require__(30),ea=__webpack_require__(31),fa=__webpack_require__(32),ia=__webpack_require__(33),D=__webpack_require__(14);
+var aa=__webpack_require__(1),l=__webpack_require__(28),B=__webpack_require__(11),C=__webpack_require__(8),ba=__webpack_require__(29),da=__webpack_require__(30),ea=__webpack_require__(31),fa=__webpack_require__(32),ia=__webpack_require__(33),D=__webpack_require__(15);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -21726,17 +21726,17 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(1);
-var invariant = __webpack_require__(11);
-var warning = __webpack_require__(15);
+var invariant = __webpack_require__(12);
+var warning = __webpack_require__(16);
 var ExecutionEnvironment = __webpack_require__(28);
-var _assign = __webpack_require__(10);
-var emptyFunction = __webpack_require__(7);
+var _assign = __webpack_require__(11);
+var emptyFunction = __webpack_require__(8);
 var EventListener = __webpack_require__(29);
 var getActiveElement = __webpack_require__(30);
 var shallowEqual = __webpack_require__(31);
 var containsNode = __webpack_require__(32);
 var focusNode = __webpack_require__(33);
-var emptyObject = __webpack_require__(14);
+var emptyObject = __webpack_require__(15);
 var checkPropTypes = __webpack_require__(18);
 var hyphenateStyleName = __webpack_require__(185);
 var camelizeStyleName = __webpack_require__(187);
@@ -37280,7 +37280,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -37323,9 +37323,18 @@ var Empty = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'h1',
-        null,
-        'Default Route'
+        'div',
+        { id: 'page-not-found' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          '404'
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'page does not exist'
+        )
       );
     }
   }]);
@@ -37360,6 +37369,12 @@ var App = function (_React$Component2) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render(props) {
                 return _react2.default.createElement(_index6.default, props);
               } }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/poll/:id', render: function render(props) {
+                return _react2.default.createElement(_index10.default, _extends({ type: "view" }, props));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/chart/:id', render: function render(props) {
+                return _react2.default.createElement(_index10.default, _extends({ type: "chart" }, props));
+              } }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/polls', render: function render(props) {
                 return _react2.default.createElement(_index10.default, _extends({ type: "list" }, props));
               } }),
@@ -37369,15 +37384,13 @@ var App = function (_React$Component2) {
             _react2.default.createElement(_reactRouterDom.Route, { path: '/poll-create', render: function render(props) {
                 return _react2.default.createElement(_index10.default, _extends({ type: "create" }, props));
               } }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/poll/:id', render: function render(props) {
-                return _react2.default.createElement(_index10.default, _extends({ type: "view" }, props));
-              } }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/login', render: function render(props) {
                 return _react2.default.createElement(_index8.default, _extends({ login: true }, props));
               } }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', render: function render(props) {
                 return _react2.default.createElement(_index8.default, _extends({ login: false }, props));
-              } })
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { component: Empty })
           )
         )
       );
@@ -37470,10 +37483,10 @@ BrowserRouter.propTypes = {
 
 
 
-var emptyFunction = __webpack_require__(7);
-var invariant = __webpack_require__(11);
-var warning = __webpack_require__(15);
-var assign = __webpack_require__(10);
+var emptyFunction = __webpack_require__(8);
+var invariant = __webpack_require__(12);
+var warning = __webpack_require__(16);
+var assign = __webpack_require__(11);
 
 var ReactPropTypesSecret = __webpack_require__(19);
 var checkPropTypes = __webpack_require__(18);
@@ -38020,8 +38033,8 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 
-var emptyFunction = __webpack_require__(7);
-var invariant = __webpack_require__(11);
+var emptyFunction = __webpack_require__(8);
+var invariant = __webpack_require__(12);
 var ReactPropTypesSecret = __webpack_require__(19);
 
 module.exports = function() {
@@ -38094,7 +38107,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _LocationUtils = __webpack_require__(20);
 
-var _PathUtils = __webpack_require__(12);
+var _PathUtils = __webpack_require__(13);
 
 var _createTransitionManager = __webpack_require__(21);
 
@@ -38471,7 +38484,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _LocationUtils = __webpack_require__(20);
 
-var _PathUtils = __webpack_require__(12);
+var _PathUtils = __webpack_require__(13);
 
 var _createTransitionManager = __webpack_require__(21);
 
@@ -38875,7 +38888,7 @@ var _warning = __webpack_require__(3);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _PathUtils = __webpack_require__(12);
+var _PathUtils = __webpack_require__(13);
 
 var _LocationUtils = __webpack_require__(20);
 
@@ -39788,10 +39801,10 @@ Redirect.contextTypes = {
 /* unused harmony reexport createHashHistory */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createMemoryHistory__ = __webpack_require__(209);
 /* unused harmony reexport createMemoryHistory */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__LocationUtils__ = __webpack_require__(17);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__LocationUtils__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__PathUtils__ = __webpack_require__(14);
 /* unused harmony reexport parsePath */
 /* unused harmony reexport createPath */
 
@@ -39813,8 +39826,8 @@ Redirect.contextTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(40);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -40117,8 +40130,8 @@ var createBrowserHistory = function createBrowserHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PathUtils__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__createTransitionManager__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DOMUtils__ = __webpack_require__(40);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -40436,8 +40449,8 @@ var createHashHistory = function createHashHistory() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PathUtils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__LocationUtils__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(25);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -40621,7 +40634,7 @@ var createMemoryHistory = function createMemoryHistory() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_history_PathUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_history_PathUtils__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Router__ = __webpack_require__(23);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -41682,7 +41695,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -41711,9 +41724,29 @@ var App = function (_React$Component) {
 
 
   _createClass(App, [{
+    key: 'home',
+    value: function home() {
+      this.props.history.push("/");
+    }
+  }, {
     key: 'myPolls',
     value: function myPolls() {
       this.props.history.push("/polls-own");
+    }
+  }, {
+    key: 'createPolls',
+    value: function createPolls() {
+      this.props.history.push("/poll-create");
+    }
+  }, {
+    key: 'logIn',
+    value: function logIn() {
+      this.props.history.push("/login");
+    }
+  }, {
+    key: 'signUp',
+    value: function signUp() {
+      this.props.history.push("/signup");
     }
   }, {
     key: 'logOut',
@@ -41749,6 +41782,11 @@ var App = function (_React$Component) {
               ),
               _react2.default.createElement(
                 'li',
+                { onClick: this.createPolls.bind(this) },
+                'Create a Poll'
+              ),
+              _react2.default.createElement(
+                'li',
                 { onClick: this.logOut.bind(this) },
                 'Logout'
               )
@@ -41761,21 +41799,13 @@ var App = function (_React$Component) {
           null,
           _react2.default.createElement(
             'li',
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/login' },
-              'Login'
-            )
+            { onClick: this.logIn.bind(this) },
+            'Login'
           ),
           _react2.default.createElement(
             'li',
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/signup' },
-              'Signup'
-            )
+            { onClick: this.signUp.bind(this) },
+            'Signup'
           )
         );
       }
@@ -41785,12 +41815,8 @@ var App = function (_React$Component) {
         { id: 'navigation' },
         _react2.default.createElement(
           'h2',
-          null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/' },
-            'PollBot'
-          )
+          { onClick: this.home.bind(this) },
+          'PollBot'
         ),
         links
       );
@@ -41819,7 +41845,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -41975,11 +42001,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(17);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -42029,8 +42055,8 @@ var App = function (_React$Component) {
         _index2.default.dispatch((0, _userActions.loggedIn)(result.data.user.username, result.data.user.firstname, result.data.user.lastname));
         _this2.props.history.push(result.data.redirect);
       }).catch(function (err) {
-        console.log(err);
-        if (err.data.status === 404) _this2.setState({ error: "Something went wrong, try again later" });else _this2.setState({ error: err.data.responseText });
+        console.log(err.response.status);
+        if (err.response.status === 404) _this2.setState({ error: "Something went wrong, try again later" });else _this2.setState({ error: err.response.data });
       });
       event.preventDefault();
     }
@@ -42979,11 +43005,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(17);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -43060,15 +43086,16 @@ var App = function (_React$Component) {
         if (_this2.state.lname.length === 0) _this2.lnameErrors.push("Last name cannot be empty");
         // check username
         if (_this2.state.uname.length === 0) _this2.unameErrors.push("Username cannot be empty");
-        if (result.data.length >= 1) {
-          _this2.unameErrors.push("Username already exists");
-        }
+        if (!_this2.state.uname.match(/^[A-Za-z]/)) _this2.unameErrors.push("Username must start with a letter");
+        if (!_this2.state.uname.match(/^\w+$/)) _this2.unameErrors.push("Username cannot contain special characters or spaces");
+        if (result.data.length >= 1) _this2.unameErrors.push("Username already exists");
+
         // check password
         if (_this2.state.pass.length === 0) _this2.passErrors.push("Password cannot be empty");else if (!_this2.state.pass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/)) _this2.passErrors.push("Password must be at least 8 characters, 1 number, & 1 letter");
 
         if (_this2.fnameErrors.length > 0 || _this2.lnameErrors.length > 0 || _this2.unameErrors.length > 0 || _this2.passErrors.length > 0) callback(true);else callback(false);
       }).catch(function (err) {
-        _this2.serverError = err.responseText;
+        _this2.serverError = err.response.data;
         callback(true);
       });
     }
@@ -43085,7 +43112,7 @@ var App = function (_React$Component) {
             _index2.default.dispatch((0, _userActions.loggedIn)(_this3.state.uname, _this3.state.fname, _this3.state.lname));
             _this3.props.history.push(result.data.redirect);
           }).catch(function (err) {
-            if (err.data.responseText === "Username already exists") _this3.unameErrors.push(err.data.responseText);else _this3.serverError = true;
+            if (err.response.data === "Username already exists") _this3.unameErrors.push(err.response.data);else _this3.serverError = true;
             _this3.setState({ errorsFound: true });
           });
         }
@@ -43217,6 +43244,10 @@ var _pollView = __webpack_require__(262);
 
 var _pollView2 = _interopRequireDefault(_pollView);
 
+var _pollChart = __webpack_require__(263);
+
+var _pollChart2 = _interopRequireDefault(_pollChart);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43237,11 +43268,11 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-      if (this.props.type === "list") var content = _react2.default.createElement(_pollList2.default, { type: 'list' });else if (this.props.type === "list-own") var content = _react2.default.createElement(_pollList2.default, { type: 'list-own' });else if (this.props.type === "create") var content = _react2.default.createElement(_pollCreate2.default, null);else if (this.props.type === "view") var content = _react2.default.createElement('div', null);
+      if (this.props.type === "list") var content = _react2.default.createElement(_pollList2.default, { type: 'list' });else if (this.props.type === "list-own") var content = _react2.default.createElement(_pollList2.default, { type: 'list-own' });else if (this.props.type === "create") var content = _react2.default.createElement(_pollCreate2.default, null);else if (this.props.type === "view") var content = _react2.default.createElement(_pollView2.default, { pollId: this.props.match.params.id });else if (this.props.type === "chart") var content = _react2.default.createElement(_pollChart2.default, { pollId: this.props.match.params.id });
 
       return _react2.default.createElement(
         'div',
-        null,
+        { id: 'poll-content' },
         content
       );
     }
@@ -43273,11 +43304,11 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _axios = __webpack_require__(17);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -43304,24 +43335,47 @@ var App = function (_React$Component) {
   }
   // Custom methods
 
+
   _createClass(App, [{
+    key: "retrievePolls",
+    value: function retrievePolls() {
+      var _this2 = this;
+
+      if (this.state.listType !== this.props.type) {
+        if (this.props.type === "list-own") {
+          var data = { uname: _index2.default.getState().user.username };
+
+          _axios2.default.post("/api/polls/retrieve-own-polls", data).then(function (result) {
+            _this2.setState({ polls: result.data, listType: "list-own" });
+          }).catch(function (err) {
+            console.log(err);
+          });
+        } else {
+          _axios2.default.get("/api/polls/retrieve-polls").then(function (result) {
+            _this2.setState({ polls: result.data, listType: "list" });
+          }).catch(function (err) {
+            console.log(err);
+          });
+        }
+      }
+    }
+  }, {
     key: "displayPolls",
     value: function displayPolls() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.state.polls.map(function (val, i) {
         var tmpDate = (0, _moment2.default)(new Date(val.date_created), 'MM-DD-YYYY').format('MM/DD/YYYY');
 
-        // <td className="delete"><i className="fa fa-window-close" onClick={this.deletePoll.bind(this, val)}></i></td>
-        return _this2.props.type === "list-own" ? _react2.default.createElement(
+        return _this3.props.type === "list-own" ? _react2.default.createElement(
           "tr",
-          { className: "poll-row", key: i },
+          { className: "row", key: i },
           _react2.default.createElement(
             "td",
             { className: "title" },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: "/polls/" + val.id },
+              { to: "/poll/" + val.id },
               val.title
             ),
             " ",
@@ -43345,17 +43399,17 @@ var App = function (_React$Component) {
           _react2.default.createElement(
             "td",
             { className: "delete" },
-            _react2.default.createElement("i", { className: "fa fa-window-close", onClick: _this2.showPrompt.bind(_this2, val) })
+            _react2.default.createElement("i", { className: "fa fa-window-close", onClick: _this3.showPrompt.bind(_this3, val) })
           )
         ) : _react2.default.createElement(
           "tr",
-          { className: "poll-row", key: i },
+          { className: "row", key: i },
           _react2.default.createElement(
             "td",
-            { className: "title" },
+            { className: "title all" },
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: "/polls/" + val.id },
+              { to: "/poll/" + val.id },
               val.title
             ),
             " ",
@@ -43389,22 +43443,21 @@ var App = function (_React$Component) {
   }, {
     key: "hidePrompt",
     value: function hidePrompt() {
-      console.log("hide");
       document.getElementsByClassName("delete-prompt")[0].style.display = "none";
       this.setState({ pollToBeDeleted: { id: null, title: null, date_created: null } });
     }
   }, {
     key: "deletePoll",
-    value: function deletePoll(poll) {
-      var _this3 = this;
+    value: function deletePoll() {
+      var _this4 = this;
 
-      _axios2.default.delete("/api/polls/delete-poll", { data: { id: poll.id } }).then(function (result) {
-        _this3.hidePrompt();
-
-        var tmp = _this3.state.polls.filter(function (val2) {
-          return val2.id !== poll.id;
+      _axios2.default.delete("/api/polls/delete-poll", { data: { id: this.state.pollToBeDeleted.id } }).then(function (result) {
+        var tmp = _this4.state.polls.filter(function (val2) {
+          return val2.id !== _this4.state.pollToBeDeleted.id;
         });
-        _this3.setState({ polls: tmp });
+        _this4.setState({ polls: tmp });
+
+        _this4.hidePrompt();
       }).catch(function (err) {
         console.log(err);
       });
@@ -43415,7 +43468,13 @@ var App = function (_React$Component) {
   }, {
     key: "componentWillMount",
     value: function componentWillMount() {
-      if (!_index2.default.getState().user.username) this.props.history.push("/");
+      if (this.props.type === "list-own" && !_index2.default.getState().user.username) this.props.history.push("/");
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      //get poll data, either all or self-made
+      this.retrievePolls();
     }
   }, {
     key: "componentWillReceiveProps",
@@ -43426,37 +43485,73 @@ var App = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
-
-      //get poll data, either all or self-made
-      if (this.state.listType !== this.props.type) {
-        if (this.props.type === "list-own") {
-          var data = { uname: _index2.default.getState().user.username };
-
-          _axios2.default.post("/api/polls/retrieve-own-polls", data).then(function (result) {
-            _this4.setState({ polls: result.data, listType: "list-own" });
-          }).catch(function (err) {
-            console.log(err);
-          });
-        } else {
-          _axios2.default.get("/api/polls/retrieve-polls").then(function (result) {
-            _this4.setState({ polls: result.data, listType: "list" });
-          }).catch(function (err) {
-            console.log(err);
-          });
-        }
-      }
-
       //get poll list rendered
       var tmp = this.displayPolls();
 
       return _react2.default.createElement(
         "div",
-        { id: "poll-list" },
+        { id: "polls-list" },
         _react2.default.createElement(
           "h1",
           null,
           this.props.type === "list-own" ? "My Polls" : "Polls"
+        ),
+        _react2.default.createElement(
+          "table",
+          { className: "heading" },
+          _react2.default.createElement(
+            "tbody",
+            null,
+            this.props.type === "list-own" ? _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                { className: "title" },
+                _react2.default.createElement(
+                  "b",
+                  null,
+                  "Title"
+                )
+              ),
+              _react2.default.createElement(
+                "th",
+                { className: "date-created" },
+                _react2.default.createElement(
+                  "b",
+                  null,
+                  "Date"
+                )
+              ),
+              _react2.default.createElement(
+                "th",
+                { className: "delete" },
+                _react2.default.createElement("i", { className: "fa fa-trash" })
+              )
+            ) : _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "th",
+                { className: "title" },
+                _react2.default.createElement(
+                  "b",
+                  null,
+                  "Title"
+                )
+              ),
+              _react2.default.createElement(
+                "th",
+                { className: "date-created" },
+                _react2.default.createElement(
+                  "b",
+                  null,
+                  "Date"
+                )
+              ),
+              _react2.default.createElement("th", { className: "delete" })
+            )
+          )
         ),
         _react2.default.createElement(
           "div",
@@ -43467,38 +43562,6 @@ var App = function (_React$Component) {
             _react2.default.createElement(
               "tbody",
               null,
-              this.props.type === "list-own" ? _react2.default.createElement(
-                "tr",
-                null,
-                _react2.default.createElement(
-                  "th",
-                  { className: "title" },
-                  "Title"
-                ),
-                _react2.default.createElement(
-                  "th",
-                  { className: "date-created" },
-                  "Date"
-                ),
-                _react2.default.createElement(
-                  "th",
-                  null,
-                  _react2.default.createElement("i", { className: "fa fa-trash" })
-                )
-              ) : _react2.default.createElement(
-                "tr",
-                null,
-                _react2.default.createElement(
-                  "th",
-                  { className: "title" },
-                  "Title"
-                ),
-                _react2.default.createElement(
-                  "th",
-                  { className: "date-created" },
-                  "Date"
-                )
-              ),
               tmp
             )
           )
@@ -43527,7 +43590,7 @@ var App = function (_React$Component) {
               null,
               _react2.default.createElement(
                 "button",
-                { className: "confirm", onClick: this.deletePoll.bind(this, this.state.pollToBeDeleted) },
+                { className: "confirm", onClick: this.deletePoll.bind(this) },
                 "Yes"
               ),
               _react2.default.createElement(
@@ -43860,11 +43923,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(17);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouterDom = __webpack_require__(8);
+var _reactRouterDom = __webpack_require__(7);
 
 var _index = __webpack_require__(9);
 
@@ -43964,13 +44027,13 @@ var App = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      //render currently added options
+      //render currently added options + submit button
       var options = this.state.options.map(function (val, i) {
         return _react2.default.createElement(
           'div',
           { className: 'options', key: i },
           _react2.default.createElement(
-            'span',
+            'div',
             null,
             val
           ),
@@ -43993,7 +44056,7 @@ var App = function (_React$Component) {
         'Submit'
       );
 
-      //poll created
+      //poll created / input form
       if (this.state.pollCreated) {
         var content = _react2.default.createElement(
           'div',
@@ -44009,35 +44072,32 @@ var App = function (_React$Component) {
             'New Poll +'
           )
         );
-      }
-
-      //input form
-      else {
-          var content = _react2.default.createElement(
+      } else {
+        var content = _react2.default.createElement(
+          'div',
+          { className: 'form' },
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Title', maxLength: '30', onChange: this.setTitle.bind(this) }),
+          options,
+          _react2.default.createElement(
             'div',
-            { className: 'form' },
-            _react2.default.createElement('input', { type: 'text', placeholder: 'Title', maxLength: '50', onChange: this.setTitle.bind(this) }),
-            options,
+            { className: 'option-input' },
+            _react2.default.createElement('input', { type: 'text', placeholder: 'Add an option', maxLength: '50',
+              value: this.state.newOption,
+              onChange: this.setNewOption.bind(this),
+              onKeyPress: this.handleKeyPress.bind(this) }),
             _react2.default.createElement(
-              'div',
-              { className: 'option-input' },
-              _react2.default.createElement('input', { type: 'text', placeholder: 'Add an option', maxLength: '50',
-                value: this.state.newOption,
-                onChange: this.setNewOption.bind(this),
-                onKeyPress: this.handleKeyPress.bind(this) }),
-              _react2.default.createElement(
-                'button',
-                { type: 'button', onClick: this.addOption.bind(this) },
-                '+'
-              )
-            ),
-            submit
-          );
-        }
+              'button',
+              { type: 'button', onClick: this.addOption.bind(this) },
+              '+'
+            )
+          ),
+          submit
+        );
+      }
 
       return _react2.default.createElement(
         'div',
-        { id: 'poll-create' },
+        { id: 'polls-create' },
         _react2.default.createElement(
           'h1',
           null,
@@ -44060,12 +44120,420 @@ exports.default = (0, _reactRouterDom.withRouter)(App);
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(10);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouterDom = __webpack_require__(7);
+
+var _index = __webpack_require__(9);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = { poll: null, newOption: "", selected: null };
+    return _this;
+  }
+
+  // Custom Methods
+
+
+  _createClass(App, [{
+    key: "setSelected",
+    value: function setSelected(event) {
+      if (event.target.tagName === "INPUT") this.setState({ selected: event.target.value });
+    }
+  }, {
+    key: "setNewOption",
+    value: function setNewOption(event) {
+      this.setState({ newOption: event.target.value });
+    }
+  }, {
+    key: "addOption",
+    value: function addOption() {
+      var _this2 = this;
+
+      _axios2.default.post("/api/polls/create-poll-option", { poll_id: this.state.poll.id, option_content: this.state.newOption }).then(function (result) {
+        _this2.retrievePollData(_this2.state.poll.id);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "handleKeyPress",
+    value: function handleKeyPress(event) {
+      if (event.key === 'Enter') this.addOption();
+    }
+  }, {
+    key: "retrievePollData",
+    value: function retrievePollData(pollId) {
+      var _this3 = this;
+
+      _axios2.default.post("/api/polls/retrieve-single-poll", { id: pollId }).then(function (result) {
+        console.log(result.data);
+        _this3.setState({ poll: result.data, newOption: "" });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "displayPollOptions",
+    value: function displayPollOptions() {
+      // render poll options
+      var options = this.state.poll.options.map(function (val, i) {
+        return _react2.default.createElement(
+          "div",
+          { key: i },
+          _react2.default.createElement("input", { type: "radio", name: "option", value: val.id }),
+          " ",
+          val.option_content
+        );
+      });
+
+      // render additional option input if logged in
+      if (_index2.default.getState().user.username) {
+        var addOption = _react2.default.createElement(
+          "div",
+          { className: "poll-options-add" },
+          _react2.default.createElement("input", { type: "text", placeholder: "Don't like the options? add your own",
+            value: this.state.newOption,
+            onChange: this.setNewOption.bind(this),
+            onKeyPress: this.handleKeyPress.bind(this) }),
+          _react2.default.createElement(
+            "button",
+            { type: "button", onClick: this.addOption.bind(this) },
+            "+"
+          )
+        );
+      } else {
+        var addOption = _react2.default.createElement(
+          "div",
+          { className: "poll-options-add" },
+          _react2.default.createElement(
+            "div",
+            null,
+            "Log in to add a new option"
+          )
+        );
+      }
+
+      return _react2.default.createElement(
+        "div",
+        { className: "form" },
+        _react2.default.createElement(
+          "div",
+          { className: "poll-options-list", onClick: this.setSelected.bind(this) },
+          options
+        ),
+        addOption,
+        _react2.default.createElement(
+          "div",
+          { className: "poll-options-other" },
+          _react2.default.createElement(
+            "button",
+            { type: "button", onClick: this.submitVote.bind(this) },
+            "Submit"
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: "/chart/" + this.state.poll.id },
+            "View Poll Results"
+          )
+        )
+      );
+    }
+  }, {
+    key: "submitVote",
+    value: function submitVote() {
+      var _this4 = this;
+
+      if (this.state.selected) {
+        var data = {
+          poll_id: this.state.poll.id,
+          option_id: this.state.selected,
+          voted_users: this.state.poll.voted_users,
+          username: _index2.default.getState().user.username
+        };
+
+        _axios2.default.put("/api/polls/submit-vote", data).then(function (result) {
+          _this4.props.history.push("/chart/" + _this4.state.poll.id);
+        }).catch(function (err) {
+          console.log(err);
+        });
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.retrievePollData(this.props.pollId);
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.retrievePollData(nextProps.pollId);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.poll) {
+        var options = this.displayPollOptions();
+
+        return _react2.default.createElement(
+          "div",
+          { id: "polls-view" },
+          _react2.default.createElement(
+            "h3",
+            null,
+            this.state.poll.title
+          ),
+          _react2.default.createElement(
+            "small",
+            null,
+            "Created by ",
+            this.state.poll.user.username
+          ),
+          options,
+          _react2.default.createElement(
+            "div",
+            { className: "links" },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: "/polls" },
+              "View other polls"
+            )
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          "div",
+          { id: "polls-view" },
+          _react2.default.createElement("i", { className: "loading fa fa-spinner fa-spin" })
+        );
+      }
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(App);
+
 /***/ }),
 /* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
 
-var content = __webpack_require__(264);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(10);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouterDom = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = { poll: null, totalVotes: 0 };
+    return _this;
+  }
+
+  _createClass(App, [{
+    key: 'retrievePollData',
+    value: function retrievePollData(pollId) {
+      var _this2 = this;
+
+      _axios2.default.post("/api/polls/retrieve-single-poll", { id: pollId }).then(function (result) {
+        var totalVotes = 0;
+
+        for (var i = 0; i < result.data.options.length; i++) {
+          totalVotes += result.data.options[i].votes;
+        }
+
+        _this2.setState({ poll: result.data, totalVotes: totalVotes });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: 'displayData',
+    value: function displayData() {
+      var _this3 = this;
+
+      return this.state.poll.options.map(function (val, i) {
+        var percentage = _this3.state.totalVotes === 0 ? 0 : val.votes / _this3.state.totalVotes * 100;
+
+        return _react2.default.createElement(
+          'tr',
+          { className: 'row', key: i },
+          _react2.default.createElement(
+            'td',
+            { className: 'label' },
+            _react2.default.createElement(
+              'span',
+              null,
+              val.option_content
+            )
+          ),
+          _react2.default.createElement(
+            'td',
+            { className: 'percentage' },
+            percentage.toFixed(2),
+            '%'
+          ),
+          _react2.default.createElement(
+            'td',
+            { className: 'bar' },
+            _react2.default.createElement('div', { className: "bar-" + Math.round(percentage) })
+          ),
+          _react2.default.createElement(
+            'td',
+            { className: 'votes' },
+            val.votes
+          )
+        );
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.retrievePollData(this.props.pollId);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.retrievePollData(nextProps.pollId);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.state.poll) {
+        var data = this.displayData();
+
+        return _react2.default.createElement(
+          'div',
+          { id: 'polls-chart' },
+          _react2.default.createElement(
+            'h3',
+            null,
+            this.state.poll.title,
+            ' - Results'
+          ),
+          _react2.default.createElement(
+            'table',
+            { className: 'chart' },
+            _react2.default.createElement(
+              'tbody',
+              null,
+              data
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'total' },
+            _react2.default.createElement(
+              'div',
+              { className: 'label' },
+              _react2.default.createElement(
+                'b',
+                null,
+                'Total votes'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'votes' },
+              _react2.default.createElement(
+                'b',
+                null,
+                this.state.totalVotes
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'links' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: "/poll/" + this.state.poll.id },
+              'VOTE!!!'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/polls' },
+              'View other polls'
+            )
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          { id: 'polls-chart' },
+          _react2.default.createElement('i', { className: 'loading fa fa-spinner fa-spin' })
+        );
+      }
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(App);
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(265);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -44079,7 +44547,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(266)(content, options);
+var update = __webpack_require__(267)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -44111,21 +44579,21 @@ if(false) {
 }
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(265)(false);
+exports = module.exports = __webpack_require__(266)(false);
 // imports
 
 
 // module
-exports.push([module.i, "/* font families */\n#navigation {\n  font-family: \"Courier New\", Courier, monospace;\n  background-color: #333333;\n  color: #aaaaaa;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  min-width: 700px;\n  height: 40px; }\n  #navigation a {\n    text-decoration: none;\n    color: #aaaaaa; }\n  #navigation h2 {\n    position: absolute;\n    margin-top: 10px;\n    margin-bottom: 0px;\n    left: 30px; }\n  #navigation > ul {\n    position: absolute;\n    margin-top: 10px;\n    margin-bottom: 0px;\n    padding: 0px;\n    right: 50px; }\n    #navigation > ul > li {\n      position: relative;\n      display: inline-block;\n      margin: 3px;\n      font-size: 20px;\n      font-weight: 800;\n      text-align: center; }\n      #navigation > ul > li .dropdown {\n        position: absolute;\n        background-color: #333333;\n        color: #aaaaaa;\n        width: 125px;\n        right: 0px;\n        padding-left: 0px;\n        font-size: 14px;\n        list-style-type: none;\n        display: none; }\n        #navigation > ul > li .dropdown li {\n          padding: 10px; }\n          #navigation > ul > li .dropdown li:hover {\n            background-color: #262626;\n            color: #999999; }\n      #navigation > ul > li:hover {\n        border-bottom: 1px solid #cacaca;\n        cursor: pointer; }\n      #navigation > ul > li.username:hover .dropdown {\n        display: block; }\n\n/* font families */\n#home {\n  font-family: Verdana, Geneva, sans-serif;\n  color: #bbbbff;\n  padding-top: 20px;\n  text-align: center; }\n  #home h1 {\n    font-size: 45px;\n    margin-bottom: 2px; }\n  #home h5 {\n    width: 250px;\n    margin: 0 auto;\n    margin-bottom: 20px; }\n  #home a {\n    display: inline-block;\n    color: #bbbbff;\n    border: 1px solid #bbbbff;\n    text-decoration: none;\n    margin: 5px;\n    padding: 7px; }\n\n/* font families */\n#auth {\n  font-family: Verdana, Geneva, sans-serif;\n  background-color: #494949;\n  color: #dddddd;\n  width: 32%;\n  max-width: 300px;\n  min-width: 200px;\n  margin: 0 auto;\n  margin-top: 60px;\n  padding: 20px;\n  text-align: center; }\n  #auth h3 {\n    text-align: center;\n    margin: 10px; }\n  #auth small {\n    display: inline-block;\n    text-align: center;\n    color: red; }\n  #auth form input {\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    margin-bottom: 5px;\n    padding: 5px;\n    width: 70%;\n    box-sizing: border-box; }\n  #auth form i {\n    position: relative;\n    color: red;\n    font-size: 15px;\n    left: -20px;\n    z-index: 2;\n    width: 0px; }\n    #auth form i:hover + div {\n      display: block; }\n  #auth form div {\n    position: absolute;\n    display: none;\n    font-size: 10px;\n    margin-top: -35px;\n    margin-left: 270px;\n    background-color: #28a745;\n    color: #ffffff;\n    border-radius: 3px; }\n    #auth form div ul {\n      list-style-type: none;\n      padding-left: 5px;\n      padding-right: 5px; }\n  #auth button[type=\"submit\"] {\n    display: block;\n    background-color: #00afff;\n    color: white;\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    padding: 8px;\n    width: 70%;\n    cursor: pointer; }\n\n/* font families */\n#poll-create {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #poll-create h1 {\n    color: #bbbbff;\n    text-align: center; }\n  #poll-create .done, #poll-create .form {\n    padding: 10px;\n    width: 600px;\n    min-width: 450px;\n    margin: 0 auto;\n    border: 1px solid #bbbbff; }\n  #poll-create .done {\n    text-align: center; }\n    #poll-create .done h2 {\n      color: #bbbbff;\n      text-align: center; }\n    #poll-create .done button {\n      background-color: #00afff;\n      color: #ffffff;\n      border: 1px solid #00afff;\n      margin: 0 auto;\n      padding: 5px;\n      cursor: pointer; }\n  #poll-create .form input[placeholder=\"Title\"] {\n    width: 100%;\n    height: 35px;\n    background-color: #161620;\n    color: #bbbbff;\n    font-size: 20px;\n    margin-bottom: 20px;\n    padding: 5px;\n    border: none;\n    border-bottom: 3px solid #bbbbff;\n    box-sizing: border-box;\n    outline: none; }\n  #poll-create .form .options {\n    width: 100%;\n    color: #bbbbff;\n    font-size: 15px;\n    padding-top: 5px;\n    padding-bottom: 5px; }\n    #poll-create .form .options + .options {\n      border-top: 1px solid #bbbbff; }\n    #poll-create .form .options span {\n      display: inline-block;\n      width: 95%;\n      padding-left: 6px;\n      box-sizing: border-box; }\n    #poll-create .form .options button {\n      width: 5%;\n      background-color: #dc3545;\n      color: #ffffff;\n      border: 1px solid #dc3545;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n  #poll-create .form .option-input {\n    width: 100%;\n    margin-top: 7px; }\n    #poll-create .form .option-input > input {\n      width: 95%;\n      background-color: #363640;\n      color: #bbbbff;\n      font-size: 15px;\n      border: 1px solid #363640;\n      padding-left: 5px;\n      box-sizing: border-box;\n      outline: none; }\n    #poll-create .form .option-input > button {\n      width: 5%;\n      background-color: #00afff;\n      color: #ffffff;\n      font-size: 15px;\n      border: 1px solid #00afff;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n    #poll-create .form .option-input + button {\n      width: 600px;\n      background-color: #28a745;\n      color: #ffffff;\n      border: 1px solid #28a745;\n      margin-top: 10px;\n      padding: 5px;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n      #poll-create .form .option-input + button.disabled {\n        background-color: #335533;\n        color: #999999;\n        border-color: #335533;\n        cursor: default; }\n\n/* font families */\n#poll-list {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #poll-list > h1 {\n    color: #bbbbff;\n    width: 750px;\n    margin: 0 auto;\n    margin-bottom: 30px;\n    text-align: center; }\n  #poll-list .list {\n    border: 1px solid white;\n    width: 750px;\n    max-height: 400px;\n    overflow-y: auto;\n    margin: 0 auto; }\n    #poll-list .list table {\n      display: inline-block;\n      color: #bbbbff;\n      width: 100%;\n      border-collapse: collapse;\n      box-sizing: border-box; }\n      #poll-list .list table tr.poll-row + tr.poll-row {\n        border-top: 1px solid white; }\n      #poll-list .list table th {\n        width: 100%;\n        height: 20px; }\n        #poll-list .list table th.title {\n          padding-left: 10px;\n          text-align: left; }\n        #poll-list .list table th.date-created {\n          text-align: right; }\n      #poll-list .list table td.title {\n        width: 600px;\n        text-align: left;\n        padding: 5px;\n        padding-left: 10px; }\n        #poll-list .list table td.title a {\n          color: #bbbbff;\n          text-decoration: none; }\n          #poll-list .list table td.title a:hover {\n            color: #ccccee;\n            text-decoration: none;\n            cursor: pointer; }\n        #poll-list .list table td.title small {\n          font-size: 8px; }\n      #poll-list .list table td.date-created {\n        width: 120px;\n        text-align: right; }\n      #poll-list .list table td.delete {\n        width: 30px;\n        text-align: center; }\n        #poll-list .list table td.delete i {\n          color: #dc3545; }\n          #poll-list .list table td.delete i:hover {\n            cursor: pointer; }\n  #poll-list .delete-prompt {\n    display: none; }\n    #poll-list .delete-prompt .overlay {\n      position: fixed;\n      left: 0;\n      right: 0;\n      top: 0;\n      bottom: 0;\n      background-color: #ffffff;\n      opacity: 0.12;\n      z-index: 1; }\n    #poll-list .delete-prompt .content {\n      position: fixed;\n      background-color: #ffffff;\n      left: 50%;\n      top: 50%;\n      width: 500px;\n      height: 150px;\n      margin-left: -250px;\n      margin-top: -75px;\n      text-align: center;\n      border-radius: 5px;\n      z-index: 2; }\n      #poll-list .delete-prompt .content div {\n        width: 80%;\n        margin: 0 auto; }\n        #poll-list .delete-prompt .content div button {\n          color: #ffffff;\n          width: 100px;\n          height: 30px;\n          margin: 5px;\n          border: none;\n          outline: none; }\n          #poll-list .delete-prompt .content div button.confirm {\n            background-color: #dc3545; }\n          #poll-list .delete-prompt .content div button.cancel {\n            background-color: #aaaaaa; }\n          #poll-list .delete-prompt .content div button:hover {\n            cursor: pointer; }\n\nbody {\n  background-color: #161620;\n  margin: 40px 0px 0px 0px; }\n", ""]);
+exports.push([module.i, "/* font families */\n#navigation {\n  font-family: \"Courier New\", Courier, monospace;\n  background-color: #333333;\n  color: #aaaaaa;\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  min-width: 700px;\n  height: 40px; }\n  #navigation h2 {\n    position: absolute;\n    margin: 0px;\n    line-height: 40px;\n    left: 30px;\n    cursor: pointer; }\n  #navigation > ul {\n    position: absolute;\n    margin: 0px;\n    padding: 0px;\n    height: 100%;\n    right: 50px; }\n    #navigation > ul li.username {\n      position: relative;\n      display: inline-block;\n      font-size: 20px;\n      padding-left: 10px;\n      padding-right: 10px;\n      line-height: 40px;\n      font-weight: 800;\n      text-align: center;\n      box-sizing: border-box; }\n      #navigation > ul li.username ul.dropdown {\n        position: absolute;\n        background-color: #161620;\n        width: 150px;\n        line-height: normal;\n        padding-left: 0px;\n        right: 0px;\n        list-style-type: none;\n        display: none; }\n        #navigation > ul li.username ul.dropdown li {\n          background-color: #333333;\n          font-size: 14px;\n          padding: 10px;\n          clear: right;\n          box-sizing: border-box; }\n          #navigation > ul li.username ul.dropdown li:hover {\n            background-color: #262626;\n            color: #999999;\n            cursor: pointer; }\n      #navigation > ul li.username:hover {\n        background-color: #262626; }\n        #navigation > ul li.username:hover .dropdown {\n          display: block; }\n\n/* font families */\n#home {\n  font-family: Verdana, Geneva, sans-serif;\n  color: #bbbbff;\n  padding-top: 20px;\n  text-align: center; }\n  #home h1 {\n    font-size: 45px;\n    margin-bottom: 2px; }\n  #home h5 {\n    width: 250px;\n    margin: 0 auto;\n    margin-bottom: 20px; }\n  #home a {\n    display: inline-block;\n    color: #bbbbff;\n    border: 1px solid #bbbbff;\n    text-decoration: none;\n    margin: 5px;\n    padding: 7px; }\n    #home a:hover {\n      background-color: #bbbbff;\n      color: #161620; }\n\n/* font families */\n#auth {\n  font-family: Verdana, Geneva, sans-serif;\n  background-color: #494949;\n  color: #dddddd;\n  width: 32%;\n  max-width: 300px;\n  min-width: 200px;\n  margin: 0 auto;\n  margin-top: 60px;\n  padding: 20px;\n  text-align: center; }\n  #auth h3 {\n    text-align: center;\n    margin: 10px; }\n  #auth small {\n    display: inline-block;\n    text-align: center;\n    color: red; }\n  #auth form input {\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    margin-bottom: 5px;\n    padding: 5px;\n    width: 70%;\n    box-sizing: border-box; }\n  #auth form i {\n    position: relative;\n    color: red;\n    font-size: 15px;\n    left: -20px;\n    z-index: 2;\n    width: 0px; }\n    #auth form i:hover + div {\n      display: block; }\n  #auth form div {\n    position: absolute;\n    display: none;\n    font-size: 10px;\n    margin-top: -35px;\n    margin-left: 270px;\n    background-color: #dc3545;\n    color: #ffffff;\n    border-radius: 3px; }\n    #auth form div ul {\n      padding-left: 20px;\n      padding-right: 10px; }\n      #auth form div ul li {\n        text-align: left; }\n  #auth button[type=\"submit\"] {\n    display: block;\n    background-color: #00afff;\n    color: white;\n    border: none;\n    margin: 0 auto;\n    margin-top: 5px;\n    padding: 8px;\n    width: 70%;\n    cursor: pointer; }\n\n/* font families */\n#polls-create {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #polls-create h1 {\n    color: #bbbbff;\n    text-align: center; }\n  #polls-create .done, #polls-create .form {\n    padding: 10px;\n    width: 600px;\n    min-width: 450px;\n    margin: 0 auto;\n    border: 1px solid #bbbbff; }\n  #polls-create .done {\n    text-align: center; }\n    #polls-create .done h2 {\n      color: #bbbbff;\n      text-align: center; }\n    #polls-create .done button {\n      background-color: #00afff;\n      color: #ffffff;\n      border: 1px solid #00afff;\n      margin: 0 auto;\n      padding: 5px;\n      cursor: pointer; }\n  #polls-create .form input[placeholder=\"Title\"] {\n    width: 100%;\n    height: 35px;\n    background-color: #161620;\n    color: #bbbbff;\n    font-size: 20px;\n    margin-bottom: 20px;\n    padding: 5px;\n    border: none;\n    border-bottom: 3px solid #bbbbff;\n    box-sizing: border-box;\n    outline: none; }\n  #polls-create .form .options {\n    width: 100%;\n    color: #bbbbff;\n    font-size: 15px;\n    padding-top: 5px;\n    padding-bottom: 5px; }\n    #polls-create .form .options + .options {\n      clear: both;\n      border-top: 1px solid #bbbbff; }\n    #polls-create .form .options div {\n      float: left;\n      width: 95%;\n      padding-left: 6px;\n      word-wrap: break-word;\n      box-sizing: border-box; }\n    #polls-create .form .options button {\n      width: 5%;\n      background-color: #dc3545;\n      color: #ffffff;\n      border: 1px solid #dc3545;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n  #polls-create .form .option-input {\n    width: 100%;\n    margin-top: 7px; }\n    #polls-create .form .option-input input {\n      background-color: #363640;\n      color: #bbbbff;\n      width: 95%;\n      font-size: 15px;\n      border: 1px solid #363640;\n      padding-left: 5px;\n      box-sizing: border-box;\n      outline: none; }\n    #polls-create .form .option-input button {\n      background-color: #00afff;\n      color: #ffffff;\n      width: 5%;\n      font-size: 15px;\n      border: 1px solid #00afff;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n    #polls-create .form .option-input + button {\n      width: 600px;\n      background-color: #28a745;\n      color: #ffffff;\n      border: 1px solid #28a745;\n      margin-top: 10px;\n      padding: 5px;\n      box-sizing: border-box;\n      outline: none;\n      cursor: pointer; }\n      #polls-create .form .option-input + button.disabled {\n        background-color: #335533;\n        color: #999999;\n        border-color: #335533;\n        cursor: default; }\n\n/* font families */\n#polls-list {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #polls-list > h1 {\n    color: #bbbbff;\n    width: 850px;\n    margin: 0 auto;\n    margin-bottom: 30px;\n    text-align: center; }\n  #polls-list .list {\n    width: 850px;\n    max-height: 400px;\n    overflow-y: auto;\n    overflow-x: hidden;\n    margin: 0 auto; }\n  #polls-list table {\n    width: 850px;\n    color: #bbbbff;\n    border-collapse: collapse;\n    table-layout: fixed;\n    margin: 0 auto;\n    border: 1px solid #bbbbff; }\n    #polls-list table tr.row + tr.row {\n      border-top: 1px solid white; }\n    #polls-list table th {\n      background-color: #bbbbff;\n      color: #161620;\n      height: 20px; }\n      #polls-list table th.title {\n        width: 85%;\n        padding-left: 10px;\n        text-align: left; }\n      #polls-list table th.date-created {\n        width: 10%;\n        text-align: left; }\n      #polls-list table th.delete {\n        width: 5%;\n        text-align: left; }\n    #polls-list table td.title {\n      width: 85%;\n      text-align: left;\n      padding: 5px;\n      padding-left: 10px; }\n      #polls-list table td.title a {\n        color: #bbbbff;\n        text-decoration: none; }\n        #polls-list table td.title a:hover {\n          color: #ccccee;\n          text-decoration: none;\n          cursor: pointer; }\n      #polls-list table td.title small {\n        font-size: 8px; }\n    #polls-list table td.date-created {\n      width: 10%;\n      text-align: left;\n      padding-right: 30px; }\n    #polls-list table td.delete {\n      color: #dc3545;\n      width: 5%;\n      text-align: left; }\n      #polls-list table td.delete i:hover {\n        cursor: pointer; }\n  #polls-list .delete-prompt {\n    display: none; }\n    #polls-list .delete-prompt .overlay {\n      position: fixed;\n      left: 0;\n      right: 0;\n      top: 0;\n      bottom: 0;\n      background-color: #ffffff;\n      opacity: 0.12;\n      z-index: 1; }\n    #polls-list .delete-prompt .content {\n      position: fixed;\n      background-color: #ffffff;\n      left: 50%;\n      top: 50%;\n      width: 500px;\n      height: 150px;\n      margin-left: -250px;\n      margin-top: -75px;\n      text-align: center;\n      border-radius: 5px;\n      z-index: 2; }\n      #polls-list .delete-prompt .content div {\n        width: 80%;\n        margin: 0 auto; }\n        #polls-list .delete-prompt .content div button {\n          box-sizing: border-box;\n          color: #ffffff;\n          width: 100px;\n          height: 30px;\n          margin: 5px;\n          outline: none; }\n          #polls-list .delete-prompt .content div button.confirm {\n            background-color: #dc3545;\n            border: 2px solid #dc3545; }\n            #polls-list .delete-prompt .content div button.confirm:hover {\n              background-color: #ffffff;\n              color: #dc3545;\n              cursor: pointer; }\n          #polls-list .delete-prompt .content div button.cancel {\n            background-color: #aaaaaa;\n            border: 2px solid #aaaaaa; }\n            #polls-list .delete-prompt .content div button.cancel:hover {\n              background-color: #ffffff;\n              color: #aaaaaa;\n              cursor: pointer; }\n\n/* font families */\n#polls-view {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #polls-view .loading {\n    display: block;\n    color: #bbbbff;\n    font-size: 50px;\n    margin-top: 50px;\n    text-align: center; }\n  #polls-view h3 {\n    color: #bbbbff;\n    text-align: center;\n    margin-bottom: 0px; }\n    #polls-view h3 + small {\n      display: block;\n      color: #bbbbff;\n      text-align: center;\n      margin-bottom: 20px; }\n  #polls-view .form {\n    color: #bbbbff;\n    border: 1px solid #bbbbff;\n    width: 400px;\n    margin: 0 auto; }\n    #polls-view .form .poll-options-list div {\n      margin: 0px 10px 0px 10px;\n      padding: 5px 0px 5px 0px;\n      overflow: hidden;\n      word-wrap: break-word; }\n      #polls-view .form .poll-options-list div input {\n        float: left; }\n      #polls-view .form .poll-options-list div + div {\n        border-top: 1px solid #bbbbff; }\n    #polls-view .form .poll-options-add {\n      margin: 0px 10px 0px 10px; }\n      #polls-view .form .poll-options-add div {\n        text-align: center; }\n      #polls-view .form .poll-options-add input {\n        background-color: #363640;\n        color: #bbbbff;\n        width: 95%;\n        height: 20px;\n        padding-left: 6px;\n        border: none;\n        box-sizing: border-box;\n        outline: none; }\n      #polls-view .form .poll-options-add button {\n        background-color: #00afff;\n        color: #ffffff;\n        width: 5%;\n        height: 20px;\n        border: none;\n        cursor: pointer;\n        box-sizing: border-box;\n        outline: none; }\n    #polls-view .form .poll-options-other {\n      margin: 10px 10px 5px 10px; }\n      #polls-view .form .poll-options-other button {\n        background-color: #00afff;\n        color: #ffffff;\n        height: 20px;\n        border: none;\n        cursor: pointer;\n        box-sizing: border-box; }\n      #polls-view .form .poll-options-other a {\n        color: #bbbbff;\n        font-size: 14px;\n        float: right;\n        text-decoration: underline;\n        cursor: pointer; }\n  #polls-view .links {\n    text-align: center; }\n    #polls-view .links a {\n      display: inline-block;\n      color: #bbbbff;\n      font-size: 12px;\n      text-decoration: none;\n      border: 1px solid #bbbbff;\n      margin: 7px;\n      padding: 5px; }\n      #polls-view .links a:hover {\n        background-color: #bbbbff;\n        color: #161620; }\n\n/* font families */\n#polls-chart {\n  font-family: Verdana, Geneva, sans-serif;\n  padding-top: 20px; }\n  #polls-chart .loading {\n    display: block;\n    color: #bbbbff;\n    font-size: 50px;\n    margin-top: 50px;\n    text-align: center; }\n  #polls-chart h3 {\n    color: #bbbbff;\n    text-align: center;\n    margin-bottom: 15px; }\n  #polls-chart table {\n    font-size: 12px;\n    color: #bbbbff;\n    width: 700px;\n    margin: 0 auto;\n    border: 1px solid #494953;\n    border-collapse: collapse;\n    table-layout: fixed; }\n    #polls-chart table .row {\n      width: 700px; }\n      #polls-chart table .row:nth-of-type(2n - 1) {\n        background-color: #494953; }\n      #polls-chart table .row .label {\n        width: 45%;\n        padding-left: 3px; }\n        #polls-chart table .row .label span {\n          display: block;\n          width: 100%;\n          word-wrap: break-word; }\n      #polls-chart table .row .percentage {\n        width: 10%; }\n      #polls-chart table .row .bar {\n        width: 30%;\n        height: 15px; }\n      #polls-chart table .row .bar-1 {\n        background-color: #bbbbff;\n        width: 1%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-2 {\n        background-color: #bbbbff;\n        width: 2%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-3 {\n        background-color: #bbbbff;\n        width: 3%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-4 {\n        background-color: #bbbbff;\n        width: 4%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-5 {\n        background-color: #bbbbff;\n        width: 5%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-6 {\n        background-color: #bbbbff;\n        width: 6%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-7 {\n        background-color: #bbbbff;\n        width: 7%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-8 {\n        background-color: #bbbbff;\n        width: 8%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-9 {\n        background-color: #bbbbff;\n        width: 9%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-10 {\n        background-color: #bbbbff;\n        width: 10%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-11 {\n        background-color: #bbbbff;\n        width: 11%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-12 {\n        background-color: #bbbbff;\n        width: 12%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-13 {\n        background-color: #bbbbff;\n        width: 13%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-14 {\n        background-color: #bbbbff;\n        width: 14%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-15 {\n        background-color: #bbbbff;\n        width: 15%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-16 {\n        background-color: #bbbbff;\n        width: 16%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-17 {\n        background-color: #bbbbff;\n        width: 17%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-18 {\n        background-color: #bbbbff;\n        width: 18%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-19 {\n        background-color: #bbbbff;\n        width: 19%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-20 {\n        background-color: #bbbbff;\n        width: 20%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-21 {\n        background-color: #bbbbff;\n        width: 21%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-22 {\n        background-color: #bbbbff;\n        width: 22%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-23 {\n        background-color: #bbbbff;\n        width: 23%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-24 {\n        background-color: #bbbbff;\n        width: 24%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-25 {\n        background-color: #bbbbff;\n        width: 25%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-26 {\n        background-color: #bbbbff;\n        width: 26%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-27 {\n        background-color: #bbbbff;\n        width: 27%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-28 {\n        background-color: #bbbbff;\n        width: 28%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-29 {\n        background-color: #bbbbff;\n        width: 29%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-30 {\n        background-color: #bbbbff;\n        width: 30%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-31 {\n        background-color: #bbbbff;\n        width: 31%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-32 {\n        background-color: #bbbbff;\n        width: 32%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-33 {\n        background-color: #bbbbff;\n        width: 33%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-34 {\n        background-color: #bbbbff;\n        width: 34%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-35 {\n        background-color: #bbbbff;\n        width: 35%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-36 {\n        background-color: #bbbbff;\n        width: 36%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-37 {\n        background-color: #bbbbff;\n        width: 37%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-38 {\n        background-color: #bbbbff;\n        width: 38%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-39 {\n        background-color: #bbbbff;\n        width: 39%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-40 {\n        background-color: #bbbbff;\n        width: 40%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-41 {\n        background-color: #bbbbff;\n        width: 41%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-42 {\n        background-color: #bbbbff;\n        width: 42%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-43 {\n        background-color: #bbbbff;\n        width: 43%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-44 {\n        background-color: #bbbbff;\n        width: 44%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-45 {\n        background-color: #bbbbff;\n        width: 45%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-46 {\n        background-color: #bbbbff;\n        width: 46%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-47 {\n        background-color: #bbbbff;\n        width: 47%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-48 {\n        background-color: #bbbbff;\n        width: 48%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-49 {\n        background-color: #bbbbff;\n        width: 49%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-50 {\n        background-color: #bbbbff;\n        width: 50%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-51 {\n        background-color: #bbbbff;\n        width: 51%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-52 {\n        background-color: #bbbbff;\n        width: 52%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-53 {\n        background-color: #bbbbff;\n        width: 53%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-54 {\n        background-color: #bbbbff;\n        width: 54%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-55 {\n        background-color: #bbbbff;\n        width: 55%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-56 {\n        background-color: #bbbbff;\n        width: 56%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-57 {\n        background-color: #bbbbff;\n        width: 57%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-58 {\n        background-color: #bbbbff;\n        width: 58%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-59 {\n        background-color: #bbbbff;\n        width: 59%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-60 {\n        background-color: #bbbbff;\n        width: 60%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-61 {\n        background-color: #bbbbff;\n        width: 61%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-62 {\n        background-color: #bbbbff;\n        width: 62%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-63 {\n        background-color: #bbbbff;\n        width: 63%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-64 {\n        background-color: #bbbbff;\n        width: 64%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-65 {\n        background-color: #bbbbff;\n        width: 65%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-66 {\n        background-color: #bbbbff;\n        width: 66%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-67 {\n        background-color: #bbbbff;\n        width: 67%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-68 {\n        background-color: #bbbbff;\n        width: 68%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-69 {\n        background-color: #bbbbff;\n        width: 69%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-70 {\n        background-color: #bbbbff;\n        width: 70%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-71 {\n        background-color: #bbbbff;\n        width: 71%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-72 {\n        background-color: #bbbbff;\n        width: 72%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-73 {\n        background-color: #bbbbff;\n        width: 73%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-74 {\n        background-color: #bbbbff;\n        width: 74%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-75 {\n        background-color: #bbbbff;\n        width: 75%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-76 {\n        background-color: #bbbbff;\n        width: 76%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-77 {\n        background-color: #bbbbff;\n        width: 77%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-78 {\n        background-color: #bbbbff;\n        width: 78%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-79 {\n        background-color: #bbbbff;\n        width: 79%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-80 {\n        background-color: #bbbbff;\n        width: 80%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-81 {\n        background-color: #bbbbff;\n        width: 81%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-82 {\n        background-color: #bbbbff;\n        width: 82%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-83 {\n        background-color: #bbbbff;\n        width: 83%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-84 {\n        background-color: #bbbbff;\n        width: 84%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-85 {\n        background-color: #bbbbff;\n        width: 85%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-86 {\n        background-color: #bbbbff;\n        width: 86%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-87 {\n        background-color: #bbbbff;\n        width: 87%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-88 {\n        background-color: #bbbbff;\n        width: 88%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-89 {\n        background-color: #bbbbff;\n        width: 89%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-90 {\n        background-color: #bbbbff;\n        width: 90%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-91 {\n        background-color: #bbbbff;\n        width: 91%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-92 {\n        background-color: #bbbbff;\n        width: 92%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-93 {\n        background-color: #bbbbff;\n        width: 93%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-94 {\n        background-color: #bbbbff;\n        width: 94%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-95 {\n        background-color: #bbbbff;\n        width: 95%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-96 {\n        background-color: #bbbbff;\n        width: 96%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-97 {\n        background-color: #bbbbff;\n        width: 97%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-98 {\n        background-color: #bbbbff;\n        width: 98%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-99 {\n        background-color: #bbbbff;\n        width: 99%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .bar-100 {\n        background-color: #bbbbff;\n        width: 100%;\n        height: 13px;\n        box-sizing: border-box; }\n      #polls-chart table .row .votes {\n        width: 15%;\n        padding-left: 3px;\n        overflow: hidden;\n        text-overflow: ellipsis; }\n  #polls-chart .total {\n    font-size: 12px;\n    color: #bbbbff;\n    width: 700px;\n    margin: 0 auto;\n    overflow: hidden; }\n    #polls-chart .total div {\n      float: left;\n      margin-top: 5px;\n      margin-bottom: 5px;\n      padding: 0px;\n      box-sizing: border-box; }\n      #polls-chart .total div.label {\n        width: 85%;\n        padding-left: 3px; }\n      #polls-chart .total div.votes {\n        width: 15%;\n        padding-left: 3px;\n        overflow: hidden;\n        text-overflow: ellipsis; }\n  #polls-chart .links {\n    text-align: center; }\n    #polls-chart .links a {\n      display: inline-block;\n      color: #bbbbff;\n      font-size: 12px;\n      text-decoration: none;\n      border: 1px solid #bbbbff;\n      margin: 7px;\n      padding: 5px; }\n      #polls-chart .links a:hover {\n        background-color: #bbbbff;\n        color: #161620; }\n\nbody {\n  background-color: #161620;\n  margin: 40px 0px 0px 0px; }\n\n#page-not-found {\n  font-family: \"Courier New\", Courier, monospace;\n  color: #bbbbff;\n  padding-top: 40px;\n  text-align: center; }\n  #page-not-found h1 {\n    font-size: 40px;\n    margin-bottom: 10px; }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports) {
 
 /*
@@ -44207,7 +44675,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -44273,7 +44741,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(267);
+var	fixUrls = __webpack_require__(268);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -44589,7 +45057,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports) {
 
 
