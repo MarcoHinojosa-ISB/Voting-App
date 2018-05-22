@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 var pg = require('pg');
-var dbString = process.env.DBSTRING;
+var dbString = process.env.DATABASE_URL;
 pg.defaults.poolIdle = 5000;
 
 module.exports = {
