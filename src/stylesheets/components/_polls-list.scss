@@ -102,6 +102,25 @@ $prompt-height: 150px;
     }
   }
 
+  .links{
+    text-align: center;
+
+    a{
+      display: inline-block;
+      color: $polls-font;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid $polls-border;
+      margin: 7px;
+      padding: 5px;
+
+      &:hover{
+        background-color: $polls-font;
+        color: $bg;
+      }
+    }
+  }
+
   .delete-prompt{
     display: none;
 
@@ -128,7 +147,7 @@ $prompt-height: 150px;
       border-radius: 5px;
       z-index: 2;
 
-      div{
+      .prompt-btns{
         width: 80%;
         margin: 0 auto;
 
@@ -161,7 +180,6 @@ $prompt-height: 150px;
               cursor: pointer;
             }
           }
-
         }
       }
     }

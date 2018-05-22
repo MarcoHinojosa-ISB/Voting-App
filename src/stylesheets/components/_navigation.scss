@@ -29,7 +29,7 @@
     height: 100%;
     right: 50px;
 
-    li.username{
+    .username, .authBtn{
       position: relative;
       display: inline-block;
       font-size: 20px;
@@ -66,14 +66,17 @@
           }
         }
       }
+    }
+    .username:hover{
+      background-color: $nav-hover-bg;
 
-      &:hover{
-        background-color: $nav-hover-bg;
-
-        .dropdown{
-          display: block;
-        }
+      .dropdown{
+        display: block;
       }
+    }
+    .authBtn:hover{
+      background-color: $nav-hover-bg;
+      cursor: pointer;
     }
   }
 }

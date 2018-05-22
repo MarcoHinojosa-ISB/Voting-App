@@ -50,8 +50,8 @@ class App extends React.Component{
     else{
       var links = (
         <ul>
-          <li onClick={this.logIn.bind(this)}>Login</li>
-          <li onClick={this.signUp.bind(this)}>Signup</li>
+          <li className="authBtn" onClick={this.logIn.bind(this)}>Login</li>
+          <li className="authBtn" onClick={this.signUp.bind(this)}>Signup</li>
         </ul>
       )
     }

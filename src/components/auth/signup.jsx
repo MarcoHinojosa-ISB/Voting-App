@@ -128,7 +128,7 @@ class App extends React.Component {
           <input type="text" placeholder="username" maxLength="12" onChange={this.setUname.bind(this)}/>
           {unameErrors}
           <ErrorMessage errors={this.unameErrors}/>
-          <input type="text" placeholder="password" maxLength="16" onChange={this.setPass.bind(this)}/>
+          <input type="password" placeholder="password" maxLength="16" onChange={this.setPass.bind(this)}/>
           {passErrors}
           <ErrorMessage errors={this.passErrors}/>
           <button type="submit">Submit</button>

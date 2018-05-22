@@ -53,6 +53,21 @@ class App extends React.Component{
       )
     })
   }
+  displayHeading(){
+    return this.props.type === "list-own" ? (
+      <tr>
+        <th className="title"><b>Title</b></th>
+        <th className="date-created"><b>Date</b></th>
+        <th className="delete"><i className="fa fa-trash"></i></th>
+      </tr>
+    ) : (
+      <tr>
+        <th className="title"><b>Title</b></th>
+        <th className="date-created"><b>Date</b></th>
+        <th className="delete"></th>
+      </tr>
+    )
+  }
 
   showPrompt(val){
     document.getElementsByClassName("delete-prompt")[0].style.display = "block";
@@ -94,45 +109,46 @@ class App extends React.Component{
   }
 
   render(){
-    //get poll list rendered
-    var tmp = this.displayPolls();
+    //get table data
+    var heading = this.displayHeading();
+    var content = this.displayPolls();
+
+    if(this.props.type === "list-own"){
+      var links = (
+        <div className="links">
+          <Link to={"/polls"}>View all polls</Link>
+        </div>
+      )
+    }
+    else{
+      var links = (
+        <div className="links">
+        </div>
+      )
+    }
 
     return (
       <div id="polls-list">
         <h1>{this.props.type === "list-own" ? ("My Polls") : ("Polls")}</h1>
 
-          <table className="heading">
-            <tbody>
-              {this.props.type === "list-own" ? (
-                <tr>
-                  <th className="title"><b>Title</b></th>
-                  <th className="date-created"><b>Date</b></th>
-                  <th className="delete"><i className="fa fa-trash"></i></th>
-                </tr>
-              ) : (
-                <tr>
-                  <th className="title"><b>Title</b></th>
-                  <th className="date-created"><b>Date</b></th>
-                  <th className="delete"></th>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        <div className="list">
-          <table>
-            <tbody>
-
-              {tmp}
-            </tbody>
-          </table>
-        </div>
+        <table className="heading">
+          <tbody>
+            {heading}
+          </tbody>
+        </table>
+        <table className="list">
+          <tbody>
+            {content}
+          </tbody>
+        </table>
+        {links}
 
         <div className="delete-prompt">
           <div className="overlay"></div>
           <div className="content">
             <h4>Are you sure you want to delete this poll?</h4>
             <h6>[{this.state.pollToBeDeleted.title}]</h6>
-            <div>
+            <div className="prompt-btns">
               <button className="confirm" onClick={this.deletePoll.bind(this)}>Yes</button>
               <button className="cancel" onClick={this.hidePrompt.bind(this)}>No</button>
             </div>
