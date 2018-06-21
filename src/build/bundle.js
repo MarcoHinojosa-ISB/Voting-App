@@ -69146,7 +69146,7 @@ var App = function (_React$Component) {
         // no need to handle error yet
       }
 
-      if (user.username) {
+      if (user) {
         var options = _react2.default.createElement(
           'div',
           null,
@@ -71555,7 +71555,7 @@ var App = function (_React$Component) {
       });
 
       // render additional option input if logged in
-      if (this.user.username) {
+      if (this.user) {
         var addOption = _react2.default.createElement(
           "div",
           { className: "poll-options-add" },
@@ -71616,7 +71616,7 @@ var App = function (_React$Component) {
           poll_id: this.state.poll.id,
           option_id: this.state.selected,
           voted_users: this.state.poll.voted_users,
-          username: this.user.username
+          user: this.user
         };
 
         _axios2.default.put("/api/polls/submit-vote", data).then(function (result) {
