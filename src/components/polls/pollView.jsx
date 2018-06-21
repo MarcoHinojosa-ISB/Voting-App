@@ -2,11 +2,19 @@ import React from "react";
 import Axios from "axios";
 import {Link, withRouter} from "react-router-dom";
 import store from "../../store/index.jsx";
+import jwt from 'jsonwebtoken';
+import jwtsecret from "../../../jwtsecret.js";
 
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {poll: null, newOption: "", selected: null};
+    try{
+      this.user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      this.user = undefined;
+    }
   }
 
   // Custom Methods
@@ -51,7 +59,7 @@ class App extends React.Component{
     });
 
     // render additional option input if logged in
-    if(store.getState().user.username){
+    if(this.user){
       var addOption = (
         <div className="poll-options-add">
           <input type="text" placeholder="Don't like the options? add your own"
@@ -66,7 +74,8 @@ class App extends React.Component{
       var addOption = (
         <div className="poll-options-add">
           <div>Log in to add a new option</div>
-        </div>)
+        </div>
+      )
     }
 
     return (
@@ -88,7 +97,7 @@ class App extends React.Component{
         poll_id: this.state.poll.id,
         option_id: this.state.selected,
         voted_users: this.state.poll.voted_users,
-        username: store.getState().user.username
+        user: this.user
       }
 
       Axios.put("/api/polls/submit-vote", data)

@@ -1,6 +1,8 @@
 import React from "react";
 import {Route, Link} from 'react-router-dom';
-import store from '../../store/index.jsx'
+import store from '../../store/index.jsx';
+import jwt from 'jsonwebtoken';
+import jwtsecret from "../../../jwtsecret.js";
 
 class App extends React.Component{
   constructor(props){
@@ -9,7 +11,14 @@ class App extends React.Component{
   }
 
   render(){
-    if(store.getState().user.username){
+    try{
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle error yet
+    }
+
+    if(user){
       var options = (
         <div>
           <Link to="/poll-create">Create poll</Link>

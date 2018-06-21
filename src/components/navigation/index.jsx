@@ -2,6 +2,8 @@ import React from 'react';
 import {Route, Link, withRouter} from 'react-router-dom';
 import store from '../../store/index.jsx';
 import {loggedOut} from '../../store/actions/userActions.jsx';
+import jwt from 'jsonwebtoken';
+import jwtsecret from "../../../jwtsecret.js";
 
 class App extends React.Component{
   constructor(props){
@@ -31,7 +33,12 @@ class App extends React.Component{
 
   // Life Cycle Methods
   render(){
-    let user = store.getState().user;
+    try{
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle error yet
+    }
 
     if(user && user.username){
       var links = (

@@ -1,5 +1,5 @@
 var query = require("../pg-connect.js").query;
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 
 function retrieveAllUsernames(callback){
   query("SELECT username FROM users;", [], function(err, result){
@@ -35,18 +35,18 @@ function checkExistingUsername(data, callback){
 function signup(data, callback){
   bcrypt.hash(data.pass, 10, function(err, hash) {
     if(err)
-      callback("Server error");
+      callback("Server error", null);
     else{
       checkExistingUsername(data, function(err, result){
         if(err)
-          callback(err);
+          callback(err, null);
         else if(result.length > 0){
-          callback("Username already exists");
+          callback("Username already exists", null);
         }
         else{
-          query("INSERT INTO users (username, password, firstname, lastname) values ($1, $2, $3, $4);",
-            [data.uname, hash, data.fname, data.lname], function(err, result){
-            err ? callback("Server error") : callback(null);
+          query("INSERT INTO users (username, password, firstname, lastname) values ($1, $2, $3, $4) returning *;",
+            [data.uname, hash, data.fname, data.lname], function(err2, result2){
+            err ? callback("Server error", null) : callback(null, result2);
           });
         }
       })

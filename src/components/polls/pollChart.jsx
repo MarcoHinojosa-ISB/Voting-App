@@ -23,8 +23,6 @@ class App extends React.Component{
     })
   }
   displayData(){
-
-
     return this.state.poll.options.map( (val, i) => {
       var percentage = this.state.totalVotes === 0 ? 0 : ((val.votes / this.state.totalVotes) * 100);
 
@@ -66,7 +64,6 @@ class App extends React.Component{
             <Link to={"/poll/"+this.state.poll.id}>VOTE!!!</Link>
             <Link to="/polls">View other polls</Link>
           </div>
-
         </div>
       )
     }

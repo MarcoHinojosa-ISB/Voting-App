@@ -3,17 +3,26 @@ import Moment from "moment";
 import Axios from "axios";
 import {Link, withRouter} from 'react-router-dom';
 import store from '../../store/index.jsx';
+import jwt from 'jsonwebtoken';
+import jwtsecret from "../../../jwtsecret.js";
 
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {polls: [], listType: "", pollToBeDeleted: {id: null, title: null, date_created: null}};
+
+    try{
+      this.user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      this.user = undefined;
+    }
   }
+
   // Custom methods
-  retrievePolls(){
-    if(this.state.listType !== this.props.type){
-      if(this.props.type === "list-own"){
-        let data = {uname: store.getState().user.username};
+  retrievePolls(type){
+      if(type === "list-own"){
+        let data = {uname: this.user.username};
 
         Axios.post("/api/polls/retrieve-own-polls", data)
         .then(result => {
@@ -32,13 +41,13 @@ class App extends React.Component{
           console.log(err);
         })
       }
-    }
+
   }
   displayPolls(){
     return this.state.polls.map( (val, i) => {
       let tmpDate = Moment(new Date(val.date_created), 'MM-DD-YYYY').format('MM/DD/YYYY');
 
-      return this.props.type === "list-own" ? (
+      return this.state.listType === "list-own" ? (
         <tr className="row" key={i}>
           <td className="title"><Link to={"/poll/"+val.id}>{val.title}</Link> <small>[{val.sum} votes]</small></td>
           <td className="date-created"><small>{tmpDate}</small></td>
@@ -54,7 +63,7 @@ class App extends React.Component{
     })
   }
   displayHeading(){
-    return this.props.type === "list-own" ? (
+    return this.state.listType === "list-own" ? (
       <tr>
         <th className="title"><b>Title</b></th>
         <th className="date-created"><b>Date</b></th>
@@ -95,17 +104,24 @@ class App extends React.Component{
 
   // Life cycle methods
   componentWillMount(){
-    if(this.props.type === "list-own" && !store.getState().user.username)
+    try{
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle error yet
+    }
+    if(this.state.listType === "list-own" && !user.username)
       this.props.history.push("/");
   }
   componentDidMount(){
     //get poll data, either all or self-made
-    this.retrievePolls();
+    this.retrievePolls(this.props.type);
   }
   componentWillReceiveProps(nextProps){
     //in case the user activates "delete prompt", does nothing, then goes to list of ALL polls
     if(nextProps.type === "list")
       this.hidePrompt();
+    this.retrievePolls(nextProps.type);
   }
 
   render(){
@@ -113,7 +129,7 @@ class App extends React.Component{
     var heading = this.displayHeading();
     var content = this.displayPolls();
 
-    if(this.props.type === "list-own"){
+    if(this.state.listType === "list-own"){
       var links = (
         <div className="links">
           <Link to={"/polls"}>View all polls</Link>
@@ -129,7 +145,7 @@ class App extends React.Component{
 
     return (
       <div id="polls-list">
-        <h1>{this.props.type === "list-own" ? ("My Polls") : ("Polls")}</h1>
+        <h1>{this.state.listType === "list-own" ? ("My Polls") : ("Polls")}</h1>
 
         <table className="heading">
           <tbody>

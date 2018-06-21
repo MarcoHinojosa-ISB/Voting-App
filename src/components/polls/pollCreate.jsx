@@ -2,6 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import store from '../../store/index.jsx';
+import jwt from 'jsonwebtoken';
+import jwtsecret from "../../../jwtsecret.js";
 
 class App extends React.Component{
   constructor(props){
@@ -37,8 +39,16 @@ class App extends React.Component{
   }
   handleSubmit(event){
     event.preventDefault();
+
+    try{
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle error yet
+    }
+
     let data = {
-      uname: store.getState().user.username,
+      uname: user.username,
       title: this.state.title,
       options: this.state.options
     }
@@ -58,7 +68,13 @@ class App extends React.Component{
 
   // Life Cycle Methods
   componentWillMount(){
-    if(!store.getState().user.username)
+    try{
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle error yet
+    }
+    if(!user)
       this.props.history.push("/");
   }
   render(){

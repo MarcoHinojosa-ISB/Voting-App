@@ -3,6 +3,8 @@ import Axios from 'axios';
 import {withRouter} from "react-router-dom";
 import store from "../../store/index.jsx";
 import {loggedIn} from '../../store/actions/userActions.jsx';
+import jwt from 'jsonwebtoken';
+import jwtsecret from "../../../jwtsecret.js";
 
 class App extends React.Component {
   constructor(props){
@@ -80,7 +82,7 @@ class App extends React.Component {
       else{
         Axios.post("/api/auth/sign-up", this.state)
         .then(result => {
-          store.dispatch(loggedIn(this.state.uname, this.state.fname, this.state.lname));
+          store.dispatch(loggedIn(result.data.token));
           this.props.history.push(result.data.redirect);
         })
         .catch(err => {
@@ -97,7 +99,13 @@ class App extends React.Component {
 
   // Life Cycle Methods
   componentWillMount(){
-    if(store.getState().user.username)
+    try{
+      var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+    }
+    catch(err){
+      // no need to handle error yet
+    }
+    if(user)
       this.props.history.push("/");
   }
   render(){
