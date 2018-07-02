@@ -9,39 +9,38 @@ import jwtsecret from "../../../jwtsecret.js";
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {polls: [], listType: "", pollToBeDeleted: {id: null, title: null, date_created: null}};
+    this.state = {polls: [], listType: "", loading: true, pollToBeDeleted: {id: null, title: null, date_created: null}};
 
     try{
       this.user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
     }
     catch(err){
-      this.user = undefined;
+      this.user = null;
     }
   }
 
   // Custom methods
   retrievePolls(type){
-      if(type === "list-own"){
-        let data = {uname: this.user.username};
+    if(type === "list-own"){
+      let data = {uname: this.user.username};
 
-        Axios.post("/api/polls/retrieve-own-polls", data)
-        .then(result => {
-          this.setState({polls: result.data, listType: "list-own"});
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      }
-      else{
-        Axios.get("/api/polls/retrieve-polls")
-        .then(result => {
-          this.setState({polls: result.data, listType: "list"});
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      }
-
+      Axios.get("/api/polls/retrieve-own-polls?uname="+this.user.username)
+      .then(result => {
+        this.setState({polls: result.data, loading: false, listType: "list-own"});
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+    else{
+      Axios.get("/api/polls/retrieve-polls")
+      .then(result => {
+        this.setState({polls: result.data, loading: false, listType: "list"});
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
   }
   displayPolls(){
     return this.state.polls.map( (val, i) => {
@@ -114,20 +113,45 @@ class App extends React.Component{
       this.props.history.push("/");
   }
   componentDidMount(){
-    //get poll data, either all or self-made
+    //get poll data, either all or own
     this.retrievePolls(this.props.type);
   }
   componentWillReceiveProps(nextProps){
-    //in case the user activates "delete prompt", does nothing, then goes to list of ALL polls
+    //in case the user activates "delete prompt", does nothing
     if(nextProps.type === "list")
       this.hidePrompt();
+
     this.retrievePolls(nextProps.type);
   }
 
   render(){
     //get table data
     var heading = this.displayHeading();
-    var content = this.displayPolls();
+    var polls = this.displayPolls();
+
+    if(this.state.loading){
+      var content = (<i className="loading fa fa-spinner fa-spin"></i>);
+    }
+    else if(polls.length > 0){
+      var content = (
+        <div>
+          <table className="heading">
+            <tbody>
+              {heading}
+            </tbody>
+          </table>
+          <table className="list">
+            <tbody>
+              {polls}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    else{
+      var content = (<h3>No polls created. . .</h3>);
+    }
+
 
     if(this.state.listType === "list-own"){
       var links = (
@@ -147,16 +171,7 @@ class App extends React.Component{
       <div id="polls-list">
         <h1>{this.state.listType === "list-own" ? ("My Polls") : ("Polls")}</h1>
 
-        <table className="heading">
-          <tbody>
-            {heading}
-          </tbody>
-        </table>
-        <table className="list">
-          <tbody>
-            {content}
-          </tbody>
-        </table>
+        {content}
         {links}
 
         <div className="delete-prompt">

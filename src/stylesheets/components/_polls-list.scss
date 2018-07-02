@@ -9,7 +9,14 @@ $prompt-height: 150px;
   font-family: $sans-serif;
   padding-top: 20px;
 
-  >h1{
+  > h1{
+    color: $polls-font;
+    width: $table-total-width;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  > h3{
     color: $polls-font;
     width: $table-total-width;
     margin: 0 auto;
@@ -17,7 +24,15 @@ $prompt-height: 150px;
     text-align: center;
   }
 
-  // table container
+  .loading{
+    display: block;
+    color: $polls-font;
+    font-size: 50px;
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  // table list container
   .list{
     width: $table-total-width;
     max-height: 400px;
@@ -26,7 +41,7 @@ $prompt-height: 150px;
     margin: 0 auto;
   }
 
-  // table styles
+  // table styles for both header and list
   table{
     width: $table-total-width;
     color: $polls-font;

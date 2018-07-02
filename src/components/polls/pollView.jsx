@@ -8,12 +8,12 @@ import jwtsecret from "../../../jwtsecret.js";
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {poll: null, newOption: "", selected: null};
+    this.state = {poll: null, newOption: "", selected: null, user: null};
     try{
       this.user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
     }
     catch(err){
-      this.user = undefined;
+      this.user = null;
     }
   }
 
@@ -39,9 +39,8 @@ class App extends React.Component{
       this.addOption();
   }
   retrievePollData(pollId){
-    Axios.post("/api/polls/retrieve-single-poll", {id: pollId})
+    Axios.get("/api/polls/retrieve-single-poll?id="+pollId)
     .then(result => {
-      console.log(result.data)
       this.setState({poll: result.data, newOption: ""});
     })
     .catch(err => {
@@ -79,7 +78,7 @@ class App extends React.Component{
     }
 
     return (
-      <div className="form">
+      <div className="poll-options">
         <div className="poll-options-list" onClick={this.setSelected.bind(this)}>
           {options}
         </div>
@@ -120,11 +119,14 @@ class App extends React.Component{
   render(){
     if(this.state.poll){
       let options = this.displayPollOptions();
+      let votedMessage = "Only your first vote counts!";
 
       return (
         <div id="polls-view">
           <h3>{this.state.poll.title}</h3>
-          <small>Created by {this.state.poll.user.username}</small>
+          <small className="created-by">Created by {this.state.poll.user.username}</small>
+          <small className="voted-message">{votedMessage}</small>
+
           {options}
           <div className="links">
             <Link to={"/polls"}>View other polls</Link>

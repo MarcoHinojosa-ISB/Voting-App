@@ -8,7 +8,7 @@ class App extends React.Component{
     this.state = {poll: null, totalVotes: 0};
   }
   retrievePollData(pollId){
-    Axios.post("/api/polls/retrieve-single-poll", {id: pollId})
+    Axios.get("/api/polls/retrieve-single-poll?id="+pollId)
     .then(result => {
       var totalVotes=0;
 

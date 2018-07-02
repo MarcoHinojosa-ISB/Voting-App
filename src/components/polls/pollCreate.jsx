@@ -55,7 +55,6 @@ class App extends React.Component{
 
     Axios.post('/api/polls/create-poll', data)
     .then(result => {
-      console.log(result);
       this.setState({pollCreated: true});
     })
     .catch(err => {

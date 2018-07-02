@@ -28,7 +28,6 @@ app.use('/src', express.static(__dirname + '/src'));
 app.use('/api/auth', auth.routes);
 app.use('/api/polls', polls.routes);
 app.use('/', function(req, res){
-  console.log("tests")
   res.sendFile(__dirname + "/index.html");
 });
 

@@ -8,14 +8,14 @@ router.get("/retrieve-polls", function(req, res){
   });
 });
 
-router.post("/retrieve-own-polls", function(req, res){
-  poll.retrieveOwnPolls(req.body, function(err, result){
+router.get("/retrieve-own-polls", function(req, res){
+  poll.retrieveOwnPolls(req.query, function(err, result){
     err ? res.status(500).send(err) : res.status(200).json(result.rows);
   })
 })
 
-router.post("/retrieve-single-poll", function(req, res){
-  poll.retrieveSinglePoll(req.body, function(err, result){
+router.get("/retrieve-single-poll", function(req, res){
+  poll.retrieveSinglePoll(req.query, function(err, result){
     err ? res.status(500).send(err) : res.status(200).json(result);
   })
 })

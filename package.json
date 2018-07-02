@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node ./bin/www",
-    "build": "webpack",
+    "build": "webpack -p",
     "dev": "webpack-dev-server"
   },
   "dependencies": {

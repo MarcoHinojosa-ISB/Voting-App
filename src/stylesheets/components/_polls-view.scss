@@ -14,16 +14,22 @@
     color: $polls-font;
     text-align: center;
     margin-bottom: 0px;
-
-    + small{
-      display: block;
-      color: $polls-font;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  }
+  .created-by{
+    display: block;
+    color: $polls-font;
+    text-align: center;
+  }
+  .voted-message{
+    display: block;
+    color: $polls-font;
+    opacity: 0.45;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
-  .form{
+
+  .poll-options{
     color: $polls-font;
     border: 1px solid $polls-border;
     width: 400px;
