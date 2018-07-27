@@ -85,12 +85,11 @@ class App extends React.Component{
     document.getElementsByClassName("delete-prompt")[0].style.display = "none";
     this.setState({pollToBeDeleted: {id: null, title: null, date_created: null}});
   }
-
   deletePoll(){
     Axios.delete("/api/polls/delete-poll", {data: {id: this.state.pollToBeDeleted.id}})
     .then( result => {
-      let tmp = this.state.polls.filter(val2 => {
-        return val2.id !== this.state.pollToBeDeleted.id;
+      let tmp = this.state.polls.filter(val => {
+        return val.id !== this.state.pollToBeDeleted.id;
       });
       this.setState({polls: tmp});
 
@@ -100,7 +99,63 @@ class App extends React.Component{
       console.log(err);
     })
   }
+  renderTableData(){
+    var heading = this.displayHeading();
+    var polls = this.displayPolls();
 
+    if(this.state.loading){
+      return <i className="loading fa fa-spinner fa-spin"></i>
+    }
+    else if(polls.length > 0){
+      return (
+        <div>
+          <table className="heading">
+            <tbody>
+              {heading}
+            </tbody>
+          </table>
+          <table className="list">
+            <tbody>
+              {polls}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    else{
+      return <h3>No polls created . . .</h3>
+    }
+  }
+  renderLinks(){
+    if(this.state.listType === "list-own"){
+      return (
+        <div className="links">
+          <Link to={"/polls"}>View all polls</Link>
+        </div>
+      )
+    }
+    else{
+      return (
+        <div className="links">
+        </div>
+      )
+    }
+  }
+  renderPrompt(){
+    return (
+      <div className="delete-prompt">
+        <div className="overlay"></div>
+        <div className="content">
+          <h4>Are you sure you want to delete this poll?</h4>
+          <h6>[{this.state.pollToBeDeleted.title}]</h6>
+          <div className="prompt-btns">
+            <button className="confirm" onClick={this.deletePoll.bind(this)}>Yes</button>
+            <button className="cancel" onClick={this.hidePrompt.bind(this)}>No</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   // Life cycle methods
   componentWillMount(){
     try{
@@ -125,66 +180,19 @@ class App extends React.Component{
   }
 
   render(){
-    //get table data
-    var heading = this.displayHeading();
-    var polls = this.displayPolls();
+    var tableData, links, prompt;
 
-    if(this.state.loading){
-      var content = (<i className="loading fa fa-spinner fa-spin"></i>);
-    }
-    else if(polls.length > 0){
-      var content = (
-        <div>
-          <table className="heading">
-            <tbody>
-              {heading}
-            </tbody>
-          </table>
-          <table className="list">
-            <tbody>
-              {polls}
-            </tbody>
-          </table>
-        </div>
-      );
-    }
-    else{
-      var content = (<h3>No polls created. . .</h3>);
-    }
-
-
-    if(this.state.listType === "list-own"){
-      var links = (
-        <div className="links">
-          <Link to={"/polls"}>View all polls</Link>
-        </div>
-      )
-    }
-    else{
-      var links = (
-        <div className="links">
-        </div>
-      )
-    }
+    tableData = this.renderTableData();
+    links = this.renderLinks();
+    prompt = this.renderPrompt();
 
     return (
       <div id="polls-list">
         <h1>{this.state.listType === "list-own" ? ("My Polls") : ("Polls")}</h1>
 
-        {content}
+        {tableData}
         {links}
-
-        <div className="delete-prompt">
-          <div className="overlay"></div>
-          <div className="content">
-            <h4>Are you sure you want to delete this poll?</h4>
-            <h6>[{this.state.pollToBeDeleted.title}]</h6>
-            <div className="prompt-btns">
-              <button className="confirm" onClick={this.deletePoll.bind(this)}>Yes</button>
-              <button className="cancel" onClick={this.hidePrompt.bind(this)}>No</button>
-            </div>
-          </div>
-        </div>
+        {prompt}
       </div>
     )
   }

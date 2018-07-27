@@ -5,7 +5,7 @@ import {Link, withRouter} from 'react-router-dom';
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {poll: null, totalVotes: 0};
+    this.state = {poll: null, totalVotes: 0, error: false};
   }
   retrievePollData(pollId){
     Axios.get("/api/polls/retrieve-single-poll?id="+pollId)
@@ -16,10 +16,11 @@ class App extends React.Component{
         totalVotes += result.data.options[i].votes;
       }
 
-      this.setState({poll: result.data, totalVotes: totalVotes});
+      this.setState({poll: result.data, totalVotes: totalVotes, error: false});
     })
     .catch(err => {
-      console.log(err);
+      console.log(err.response.data);
+      this.setState({error: true});
     })
   }
   displayData(){
@@ -45,10 +46,12 @@ class App extends React.Component{
     this.retrievePollData(nextProps.pollId)
   }
   render(){
+    var content;
+
     if(this.state.poll){
       let data = this.displayData();
 
-      return (
+      content = (
         <div id="polls-chart">
           <h3>{this.state.poll.title} - Results</h3>
           <table className="chart">
@@ -67,13 +70,18 @@ class App extends React.Component{
         </div>
       )
     }
-    else{
-      return (
-        <div id="polls-chart">
-          <i className="loading fa fa-spinner fa-spin"></i>
-        </div>
-      )
+    else if(this.state.error){
+      content = <h3>Unable to retrieve poll data . . .</h3>
     }
+    else{
+      content = <i className="loading fa fa-spinner fa-spin"></i>
+    }
+
+    return (
+      <div id="polls-chart">
+        {content}
+      </div>
+    )
   }
 }
 

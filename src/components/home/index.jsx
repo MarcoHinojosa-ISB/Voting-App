@@ -7,18 +7,11 @@ import jwtsecret from "../../../jwtsecret.js";
 class App extends React.Component{
   constructor(props){
     super(props);
-    this.state = {loggedIn: false};
   }
 
   render(){
     try{
       var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
-    }
-    catch(err){
-      // no need to handle error yet
-    }
-
-    if(user){
       var options = (
         <div>
           <Link to="/poll-create">Create poll</Link>
@@ -26,13 +19,14 @@ class App extends React.Component{
         </div>
       )
     }
-    else{
+    catch(err){
       var options = (
         <div>
           <Link to="/polls">View polls</Link>
         </div>
       )
     }
+
 
     return (
       <div id="home">

@@ -21,7 +21,7 @@ class App extends React.Component{
   }
   addOption(){
     if(this.state.newOption.length > 0){
-      let tmp = this.state.options;
+      let tmp = this.state.options.slice(0);
       tmp.push(this.state.newOption);
 
       this.setState({options: tmp, newOption: ""});
@@ -33,6 +33,21 @@ class App extends React.Component{
       })
     });
   }
+  renderOptions(){
+    return this.state.options.map((val, i) => {
+      return (
+        <div className="options" key={i}>
+          <div>{val}</div><button type="button" onClick={() => this.removeOption(i)}>x</button>
+        </div>
+      )
+    });
+  }
+  renderSubmit(){
+    if (this.state.title && this.state.options.length > 1)
+      return <button type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
+    else
+      return <button type="button" className="disabled">Submit</button>
+  }
   handleKeyPress(event){
     if(event.key === 'Enter')
       this.addOption();
@@ -42,24 +57,24 @@ class App extends React.Component{
 
     try{
       var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+
+      let data = {
+        uname: user.username,
+        title: this.state.title,
+        options: this.state.options
+      }
+
+      Axios.post('/api/polls/create-poll', data)
+      .then(result => {
+        this.setState({pollCreated: true});
+      })
+      .catch(err => {
+        console.log(err.response.data);
+      });
     }
     catch(err){
       // no need to handle error yet
     }
-
-    let data = {
-      uname: user.username,
-      title: this.state.title,
-      options: this.state.options
-    }
-
-    Axios.post('/api/polls/create-poll', data)
-    .then(result => {
-      this.setState({pollCreated: true});
-    })
-    .catch(err => {
-      console.log(err);
-    });
   }
   newPoll(event){
     this.setState({title: "", options: [], newOption: "", pollCreated: false});
@@ -71,25 +86,14 @@ class App extends React.Component{
       var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
     }
     catch(err){
-      // no need to handle error yet
-    }
-    if(!user)
       this.props.history.push("/");
+    }
   }
+
   render(){
     //render currently added options + submit button
-    var options = this.state.options.map((val, i) => {
-      return (
-        <div className="options" key={i}>
-          <div>{val}</div><button type="button" onClick={() => this.removeOption(i)}>x</button>
-        </div>
-      )
-    });
-    var submit = this.state.title && this.state.options.length > 1 ? (
-      <button type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
-    ) : (
-      <button type="button" className="disabled">Submit</button>
-    );
+    var options = this.renderOptions();
+    var submit = this.renderSubmit();
 
     //poll created / input form
     if(this.state.pollCreated){

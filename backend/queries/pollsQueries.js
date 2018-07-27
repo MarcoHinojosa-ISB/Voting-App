@@ -33,7 +33,7 @@ function retrieveOwnPolls(data, callback){
 
 function retrieveSinglePoll(data, callback){
   query("SELECT * FROM polls WHERE id=$1", [data.id], function(err, result){
-    if(err)
+    if(err || result.rows.length === 0)
       callback("unable to retrieve poll", null);
     else{
       data = result.rows[0];

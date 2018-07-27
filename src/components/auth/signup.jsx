@@ -101,12 +101,11 @@ class App extends React.Component {
   componentWillMount(){
     try{
       var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+      this.props.history.push("/");
     }
     catch(err){
       // no need to handle error yet
     }
-    if(user)
-      this.props.history.push("/");
   }
   render(){
     if(this.serverError)

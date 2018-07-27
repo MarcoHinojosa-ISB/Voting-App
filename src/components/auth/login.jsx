@@ -26,7 +26,6 @@ class App extends React.Component{
       this.props.history.push(result.data.redirect);
     })
     .catch(err => {
-      console.log(err.response.status);
       if(err.response.status === 404)
         this.setState({error: "Something went wrong, try again later"});
       else
@@ -39,12 +38,11 @@ class App extends React.Component{
   componentWillMount(){
     try{
       var user = jwt.verify(store.getState().user.authToken, jwtsecret.secret);
+      this.props.history.push("/");
     }
     catch(err){
       // no need to handle error yet
     }
-    if(user)
-      this.props.history.push("/");
   }
   render(){
     if(this.state.error.length > 0)

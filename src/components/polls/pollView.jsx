@@ -117,15 +117,16 @@ class App extends React.Component{
   }
 
   render(){
+    var content;
+
     if(this.state.poll){
       let options = this.displayPollOptions();
-      let votedMessage = "Only your first vote counts!";
 
       return (
         <div id="polls-view">
           <h3>{this.state.poll.title}</h3>
           <small className="created-by">Created by {this.state.poll.user.username}</small>
-          <small className="voted-message">{votedMessage}</small>
+          <small className="voted-message">Only your first vote counts!</small>
 
           {options}
           <div className="links">
@@ -135,7 +136,7 @@ class App extends React.Component{
       )
     }
     else{
-      return(
+      return (
         <div id="polls-view">
           <i className="loading fa fa-spinner fa-spin"></i>
         </div>
